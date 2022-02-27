@@ -1,9 +1,17 @@
 $dark: (
   main-background: rgb(41, 41, 41),
+  // header-background: rgb(64, 63, 75),
+  header-background: #a57d05,
   font-color: rgb(228, 228, 228),
 );
 
 $light: (
   main-background: rgb(228, 228, 228),
+  header-background: rgb(196, 194, 218),
   font-color: rgb(41, 41, 41),
+);
+
+$colors: (
+  primary-header-h1: #f7cd0f,
+  secondary-header-h1: #3558a8,
 );

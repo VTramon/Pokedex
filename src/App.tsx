@@ -1,19 +1,14 @@
 import React from 'react'
-import { useAppDispatch, useAppSelector } from './app/hooks'
-import { toDark, toLight } from './features/theme/themeSlice'
+import { useAppSelector } from './Redux/app/hooks'
+import Header from './components/Header'
 
 function App() {
   const theme = useAppSelector((state) => state.theme.value)
-  const dispatch = useAppDispatch()
 
   return (
     <main data-theme={theme}>
+      <Header />
       <h1>{theme}</h1>
-      {theme === 'dark' ? (
-        <button onClick={() => dispatch(toLight())}>light</button>
-      ) : (
-        <button onClick={() => dispatch(toDark())}>dark</button>
-      )}
     </main>
   )
 }

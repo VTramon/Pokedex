@@ -1,0 +1,16 @@
+main[data-theme='dark'] {
+  .button {
+    color: white;
+  }
+}
+
+.button {
+  height: 50px;
+  width: 50px;
+  background-color: transparent;
+
+  img {
+    width: inherit;
+    height: inherit;
+  }
+}

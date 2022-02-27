@@ -1,0 +1,50 @@
+@import '../../GlobalStyles/variables';
+@import url('https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@900&display=swap');
+
+main[data-theme='dark'] {
+  .header {
+    background-color: map-get($dark, header-background);
+
+    h1 {
+      color: map-get($colors, primary-header-h1);
+      -webkit-text-stroke: 2px map-get($colors, secondary-header-h1); /* width and color */
+    }
+  }
+}
+
+main[data-theme='light'] {
+  .header {
+    background-color: map-get($light, header-background);
+
+    h1 {
+      color: map-get($colors, primary-header-h1);
+
+      -webkit-text-stroke: 2px map-get($colors, secondary-header-h1); /* width and color */
+    }
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 70px;
+  padding: 0 20px;
+
+  h1 {
+    font-size: 3em;
+    font-family: 'Londrina Solid', cursive;
+  }
+
+  > div {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    img {
+      height: 80%;
+      margin: 0 20px;
+    }
+  }
+}
