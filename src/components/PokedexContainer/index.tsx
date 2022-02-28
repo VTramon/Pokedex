@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'react'
-import { getNationalsPokemons } from '../../service'
+import { useEffect, useState } from 'react'
+import { GetAllPokemons } from '../../service'
 import PokemonCard from '../PokemonCard'
 
 type pokemonProps = {
@@ -14,18 +14,26 @@ type RawPokemonDataProps = {
 const PokedexContainer: React.FC = () => {
   const [pokemons, setPokemons] = useState<pokemonProps[]>()
 
-  const GetNationalPokemons = async () => {
-    const raw = await getNationalsPokemons
-    const response: RawPokemonDataProps[] = raw.data['pokemon_entries']
+  const HandleGetAllPokemons = async () => {
+    const storage = sessionStorage.getItem('GetAllPokemons')
+    if (storage) {
+      setPokemons(JSON.parse(storage))
+    } else {
+      const response: RawPokemonDataProps[] = (await GetAllPokemons).data[
+        'pokemon_entries'
+      ]
 
-    const result: pokemonProps[] = response.map((item) => {
-      return item.pokemon_species
-    })
-    setPokemons(result)
+      const result: pokemonProps[] = response.map((item) => {
+        return item.pokemon_species
+      })
+
+      sessionStorage.setItem('AllPokemons', JSON.stringify(result))
+      setPokemons(result)
+    }
   }
 
   useEffect(() => {
-    GetNationalPokemons()
+    HandleGetAllPokemons()
   }, [])
 
   return (
