@@ -5,7 +5,7 @@ type HeaderProps = {}
 
 const Header: React.FC<HeaderProps> = () => {
   return (
-    <header className={styles.header}>
+    <header data-testid="header" className={styles.header}>
       <div>
         <img src="/logo.png" alt="logo do site" />
         <h1>Pokedex</h1>
