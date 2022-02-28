@@ -3,9 +3,7 @@ import { toDark, toLight } from '../../Redux/features/theme/themeSlice'
 import { DarkIcon, LightIcon } from '../Icons'
 import styles from './style.module.scss'
 
-type ThemeButtonProps = {}
-
-const ThemeButton: React.FC<ThemeButtonProps> = () => {
+const ThemeButton = () => {
   const theme = useAppSelector((state) => state.theme.value)
   const dispatch = useAppDispatch()
 
