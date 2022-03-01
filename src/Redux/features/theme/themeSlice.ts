@@ -14,9 +14,11 @@ const themeSlice = createSlice({
   reducers: {
     toDark(state) {
       state.value = 'dark'
+      window.localStorage.setItem('theme', 'dark')
     },
     toLight(state) {
       state.value = 'light'
+      window.localStorage.setItem('theme', 'light')
     },
   },
 })

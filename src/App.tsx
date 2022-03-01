@@ -9,7 +9,6 @@ function App() {
   return (
     <main data-theme={theme}>
       <Header />
-      <h1>{theme}</h1>
       <PokemonContainer />
     </main>
   )
