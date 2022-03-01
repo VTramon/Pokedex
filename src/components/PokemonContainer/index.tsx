@@ -11,8 +11,10 @@ type RawPokemonDataProps = {
   pokemon_species: pokemonProps
 }
 
-const PokedexContainer: React.FC = () => {
+const PokemonContainer: React.FC = () => {
   const [pokemons, setPokemons] = useState<pokemonProps[]>()
+  const [numberOfPokemonsListed, setNumberOfPokemonsListed] =
+    useState<number>(10)
 
   const HandleGetAllPokemons = async () => {
     const storage = sessionStorage.getItem('GetAllPokemons')
@@ -37,9 +39,9 @@ const PokedexContainer: React.FC = () => {
   }, [])
 
   return (
-    <section>
+    <section data-testid="pokemon-container">
       {pokemons
-        ? pokemons.map((item, index) => {
+        ? pokemons.slice(0, numberOfPokemonsListed).map((item, index) => {
             return (
               <PokemonCard
                 name={item.name}
@@ -52,8 +54,14 @@ const PokedexContainer: React.FC = () => {
             )
           })
         : null}
+      <button
+        data-testid="container-button"
+        onClick={() => setNumberOfPokemonsListed((state) => state + 100)}
+      >
+        more
+      </button>
     </section>
   )
 }
 
-export default PokedexContainer
+export default PokemonContainer

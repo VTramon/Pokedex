@@ -6,7 +6,7 @@ type PokemonCardProps = {
 
 const PokemonCard: React.FC<PokemonCardProps> = (props) => {
   return (
-    <div>
+    <div data-testid="pokemon-card">
       <img src={props.img} alt={props.alt} />
 
       <h3>{props.name}</h3>

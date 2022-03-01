@@ -1,7 +1,7 @@
 import React from 'react'
 import { useAppSelector } from './Redux/app/hooks'
 import Header from './components/Header'
-import PokedexContainer from './components/PokedexContainer'
+import PokemonContainer from './components/PokemonContainer'
 
 function App() {
   const theme = useAppSelector((state) => state.theme.value)
@@ -10,7 +10,7 @@ function App() {
     <main data-theme={theme}>
       <Header />
       <h1>{theme}</h1>
-      <PokedexContainer />
+      <PokemonContainer />
     </main>
   )
 }
