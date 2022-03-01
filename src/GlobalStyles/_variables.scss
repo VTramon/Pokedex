@@ -1,13 +1,18 @@
 $dark: (
   main-background: rgb(41, 41, 41),
-  // header-background: rgb(64, 63, 75),
   header-background: #a57d05,
+  pokemon-card-background: rgb(43, 43, 43),
+  pokemon-card-border: rgb(50, 50, 50),
+  pokemon-card-button-background: rgb(99, 99, 99),
   font-color: rgb(228, 228, 228),
 );
 
 $light: (
   main-background: rgb(228, 228, 228),
   header-background: rgb(196, 194, 218),
+  pokemon-card-background: rgb(226, 226, 226),
+  pokemon-card-border: rgb(215, 215, 215),
+  pokemon-card-button-background: rgb(180, 180, 180),
   font-color: rgb(41, 41, 41),
 );
 
