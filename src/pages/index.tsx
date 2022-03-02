@@ -1,7 +1,7 @@
 import React from 'react'
-import { useAppSelector } from './Redux/app/hooks'
-import Header from './components/Header'
-import PokemonContainer from './components/PokemonContainer'
+import { useAppSelector } from '../Redux/app/hooks'
+import Header from '../components/Header'
+import PokemonContainer from '../components/PokemonContainer'
 
 function App() {
   const theme = useAppSelector((state) => state.theme.value)

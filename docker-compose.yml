@@ -3,7 +3,7 @@ version: '3.8'
 services:
   pokedex:
     build: ./
-    command: yarn start
+    command: yarn dev
     container_name: poke
     ports:
       - 3000:3000
