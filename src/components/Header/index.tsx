@@ -1,9 +1,7 @@
 import ThemeButton from '../ThemeButton'
 import styles from './style.module.scss'
 
-type HeaderProps = {}
-
-const Header: React.FC<HeaderProps> = () => {
+const Header = () => {
   return (
     <header data-testid="header" className={styles.header}>
       <div>

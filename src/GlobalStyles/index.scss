@@ -1,11 +1,28 @@
 @import './variables';
 
-main[data-theme='light'] {
+[data-theme='light'] {
+  .header {
+    background-color: map-get($light, header-background);
+
+    h1 {
+      color: map-get($colors, primary-header-h1);
+
+      -webkit-text-stroke: 2px map-get($colors, secondary-header-h1); /* width and color */
+    }
+  }
   background-color: map-get($light, main-background);
   color: map-get($light, font-color);
 }
 
-main[data-theme='dark'] {
+[data-theme='dark'] {
+  header {
+    background-color: map-get($dark, header-background);
+
+    h1 {
+      color: map-get($colors, primary-header-h1);
+      -webkit-text-stroke: 2px map-get($colors, secondary-header-h1); /* width and color */
+    }
+  }
   background-color: map-get($dark, main-background);
   color: map-get($dark, font-color);
 }
@@ -26,7 +43,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-main {
+#__content {
   display: flex;
   flex-direction: column;
   align-items: center;

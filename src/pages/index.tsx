@@ -1,16 +1,17 @@
 import React from 'react'
 import { useAppSelector } from '../Redux/app/hooks'
-import Header from '../components/Header'
 import PokemonContainer from '../components/PokemonContainer'
+import Header from '../components/Header'
+import { Layout } from '../components/Layout'
 
 function App() {
   const theme = useAppSelector((state) => state.theme.value)
 
   return (
-    <main data-theme={theme}>
+    <div id="__content" data-theme={theme}>
       <Header />
-      <PokemonContainer />
-    </main>
+      <Layout />
+    </div>
   )
 }
 

@@ -1,6 +1,6 @@
 @import '../../GlobalStyles/variables';
 
-main[data-theme='dark'] {
+[data-theme='dark'] {
   .card {
     img {
       background-color: map-get($dark, pokemon-card-background);
@@ -9,7 +9,7 @@ main[data-theme='dark'] {
   }
 }
 
-main[data-theme='light'] {
+[data-theme='light'] {
   .card {
     img {
       background-color: map-get($light, pokemon-card-background);
