@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios'
 import { useEffect, useState } from 'react'
 import {
   GetAllPokemons,
@@ -41,65 +42,38 @@ const PokemonContainer: React.FC<PokemonContainerProps> = ({ parameters }) => {
   }
 
   const HandleGetRegionPokemon = async (region: string) => {
+    const HandleRequest = async (
+      eachRequest: Promise<AxiosResponse<any, any>>
+    ) => {
+      const response: GetRegionPokemonsProps[] = (await eachRequest).data[
+        'pokemon_entries'
+      ]
+      const result: pokemonProps[] = response.map((item) => {
+        return item.pokemon_species
+      })
+
+      sessionStorage.setItem(`Get${region}Pokemons`, JSON.stringify(result))
+      setPokemons(result)
+    }
     const storage = sessionStorage.getItem(`Get${region}Pokemons`)
     if (storage) {
       setPokemons(JSON.parse(storage))
     } else {
       switch (region) {
-        case (region = 'Kanto'): {
-          const response: GetRegionPokemonsProps[] = (await GetKantoPokemons)
-            .data['pokemon_entries']
-          const result: pokemonProps[] = response.map((item) => {
-            return item.pokemon_species
-          })
-
-          sessionStorage.setItem(`Get${region}Pokemons`, JSON.stringify(result))
-          setPokemons(result)
-
-          break
+        case 'Kanto': {
+          return HandleRequest(GetKantoPokemons)
         }
-        case (region = 'Johto'): {
-          const response: GetRegionPokemonsProps[] = (await GetJohtoPokemons)
-            .data['pokemon_entries']
-          const result: pokemonProps[] = response.map((item) => {
-            return item.pokemon_species
-          })
-          sessionStorage.setItem(`Get${region}Pokemons`, JSON.stringify(result))
-          setPokemons(result)
-          break
+        case 'Johto': {
+          return HandleRequest(GetJohtoPokemons)
         }
-
-        case (region = 'Hoenn'): {
-          const response: GetRegionPokemonsProps[] = (await GetHoennPokemons)
-            .data['pokemon_entries']
-          const result: pokemonProps[] = response.map((item) => {
-            return item.pokemon_species
-          })
-          sessionStorage.setItem(`Get${region}Pokemons`, JSON.stringify(result))
-          setPokemons(result)
-
-          break
+        case 'Hoenn': {
+          return HandleRequest(GetHoennPokemons)
         }
-        case (region = 'Sinnoh'): {
-          const response: GetRegionPokemonsProps[] = (await GetSinnohPokemons)
-            .data['pokemon_entries']
-          const result: pokemonProps[] = response.map((item) => {
-            return item.pokemon_species
-          })
-          sessionStorage.setItem(`Get${region}Pokemons`, JSON.stringify(result))
-          setPokemons(result)
-
-          break
+        case 'Sinnoh': {
+          return HandleRequest(GetSinnohPokemons)
         }
-        case (region = 'Unova'): {
-          const response: GetRegionPokemonsProps[] = (await GetUnovaPokemons)
-            .data['pokemon_entries']
-          const result: pokemonProps[] = response.map((item) => {
-            return item.pokemon_species
-          })
-          sessionStorage.setItem(`Get${region}Pokemons`, JSON.stringify(result))
-          setPokemons(result)
-          break
+        case 'Unova': {
+          return HandleRequest(GetUnovaPokemons)
         }
       }
     }
@@ -126,12 +100,10 @@ const PokemonContainer: React.FC<PokemonContainerProps> = ({ parameters }) => {
     value: number
   ) => {
     if (index < 898) {
-      console.log('dentro do if')
       return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
         index + value
       }.png`
     } else {
-      console.log('dentro do else')
       return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
         index + value + 9102
       }.png`
@@ -139,29 +111,34 @@ const PokemonContainer: React.FC<PokemonContainerProps> = ({ parameters }) => {
   }
 
   const HandleImage = (index: number, region?: parameters) => {
-    if (region && region.region === 'Kanto') {
-      console.log('pegou nos ifs')
-      return ReturnTheCorrectPokemonImageNumbers(index, 1)
-    } else if (region && region.region === 'Johto') {
-      return ReturnTheCorrectPokemonImageNumbers(index, 153)
-    } else if (region && region.region === 'Hoenn') {
-      return ReturnTheCorrectPokemonImageNumbers(index, 252)
-    } else if (region && region.region === 'Sinnoh') {
-      return ReturnTheCorrectPokemonImageNumbers(index, 387)
-    } else if (region && region.region === 'Unova') {
-      return ReturnTheCorrectPokemonImageNumbers(index, 494)
+    if (region) {
+      switch (region.region) {
+        case 'Kanto':
+          return ReturnTheCorrectPokemonImageNumbers(index, 1)
+
+        case 'Johto':
+          return ReturnTheCorrectPokemonImageNumbers(index, 152)
+
+        case 'Hoenn':
+          return ReturnTheCorrectPokemonImageNumbers(index, 252)
+
+        case 'Sinnoh':
+          return ReturnTheCorrectPokemonImageNumbers(index, 387)
+
+        case 'Unova':
+          return ReturnTheCorrectPokemonImageNumbers(index, 494)
+      }
     }
     return ReturnTheCorrectPokemonImageNumbers(index, 1)
   }
 
   useEffect(() => {
-    if (parameters) {
-      console.log('tem parametros')
+    if (parameters?.region !== undefined) {
       handleRequestsWithParameters(parameters)
     } else {
       HandleGetAllPokemons()
     }
-  }, [])
+  }, [parameters])
 
   return (
     <section
