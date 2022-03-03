@@ -14,24 +14,18 @@ const filterSlice = createSlice({
   reducers: {
     toKanto(state) {
       state.region = 'Kanto'
-      console.log(state.region)
-      sessionStorage.setItem('region', state.region)
     },
     toJohto(state) {
       state.region = 'Johto'
-      console.log(state.region)
     },
     toHoenn(state) {
       state.region = 'Hoenn'
-      console.log(state.region)
     },
     toSinnoh(state) {
       state.region = 'Sinnoh'
-      console.log(state.region)
     },
     toUnova(state) {
       state.region = 'Unova'
-      console.log(state.region)
     },
     reset(state) {
       state.region = undefined

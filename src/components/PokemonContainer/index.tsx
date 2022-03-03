@@ -10,6 +10,7 @@ import {
 } from '../../service'
 import PokemonCard from '../PokemonCard'
 import styles from './PokemonContainer.module.scss'
+import { useAppSelector } from '../../Redux/app/hooks'
 
 type pokemonProps = {
   url: string
@@ -31,9 +32,11 @@ type parameters = {
   region?: 'Kanto' | 'Johto' | 'Hoenn' | 'Sinnoh' | 'Unova'
 }
 
-const PokemonContainer: React.FC<PokemonContainerProps> = ({ parameters }) => {
+const PokemonContainer = () => {
   const [pokemons, setPokemons] = useState<pokemonProps[]>()
   const [numberOfPokemonsListed, setNumberOfPokemonsListed] = useState(100)
+
+  const parameters = useAppSelector((state) => state.filter)
 
   const handleRequestsWithParameters = (param: parameters) => {
     if (param.region) {

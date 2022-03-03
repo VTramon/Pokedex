@@ -1,15 +1,13 @@
 import { useState } from 'react'
 import Filter from '../Filter'
 import PokemonContainer from '../PokemonContainer'
-import { useAppSelector } from '../../Redux/app/hooks'
+import styles from './Layout.module.scss'
 
 const Layout = () => {
-  const region = useAppSelector((state) => state.filter.region)
-
   return (
-    <main>
+    <main className={styles.layout}>
       <Filter />
-      <PokemonContainer parameters={{ region: region }} />
+      <PokemonContainer />
     </main>
   )
 }
