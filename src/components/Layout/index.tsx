@@ -1,9 +1,11 @@
+// import Filter from '../Filter'
 import PokemonContainer from '../PokemonContainer'
 
 const Layout = () => {
   return (
     <main>
-      <PokemonContainer />
+      {/* <Filter /> */}
+      <PokemonContainer parameters={{ region: 'Sinnoh' }} />
     </main>
   )
 }
