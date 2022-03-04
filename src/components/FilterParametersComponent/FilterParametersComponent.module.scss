@@ -12,8 +12,9 @@
   }
 }
 
-.filter_region_list {
+.filter_parameter_list {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
   width: 100%;
@@ -22,6 +23,7 @@
   span {
     background-color: transparent;
     color: inherit;
+    margin: 10px 20px;
 
     button {
       background-color: transparent;

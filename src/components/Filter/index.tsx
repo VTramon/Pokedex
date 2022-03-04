@@ -1,20 +1,18 @@
 import { useState } from 'react'
-import RegionFilterComponent from '../FilterRegionComponent'
+import RegionFilterComponent from '../FilterParametersComponent'
 import styles from './Filter.module.scss'
 import FilterSectionsComponent from '../FilterSectionsComponent'
-import FilterRegionComponent from '../FilterRegionComponent'
+import FilterRegionComponent from '../FilterParametersComponent'
 
 type RegionProps = 'Kanto' | 'Johto' | 'Hoenn' | 'Sinnoh' | 'Unova'
 
-type FilterParametersProps = null | 'region' | 'type' | 'shape'
+export type FilterParametersProps = null | 'region' | 'type' | 'shape'
 
 const Filter = () => {
   const [whichParameterIsOpen, setWhichParameterIsOpen] =
     useState<FilterParametersProps>(null)
 
   const HandleWhichParameterIsOpen = (parameter: FilterParametersProps) => {
-    // console.log('teste')
-
     switch (parameter) {
       case null: {
         setWhichParameterIsOpen(null)
@@ -24,17 +22,19 @@ const Filter = () => {
         setWhichParameterIsOpen('region')
         break
       }
+      case 'shape': {
+        setWhichParameterIsOpen('shape')
+        break
+      }
+      case 'type': {
+        setWhichParameterIsOpen('type')
+        break
+      }
     }
   }
 
   const RenderTheParameters = (param: FilterParametersProps) => {
-    switch (param) {
-      case 'region': {
-        return <FilterRegionComponent />
-      }
-      default:
-        break
-    }
+    return <FilterRegionComponent value={whichParameterIsOpen} />
   }
 
   return (

@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import FilterRegionComponent from '../FilterRegionComponent'
 import styles from './FilterSectionsComponent.module.scss'
 
 type FilterSectionProps = null | 'region' | 'type' | 'shape'
@@ -15,6 +14,9 @@ const FilterSectionsComponent: React.FC<FilterSectionsComponentProps> = ({
 
   const HandleClick = (param: FilterSectionProps) => {
     if (value === null) {
+      setValue(param)
+      setIsOpen(param)
+    } else if (param !== value) {
       setValue(param)
       setIsOpen(param)
     } else {
