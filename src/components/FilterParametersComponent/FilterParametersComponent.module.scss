@@ -43,3 +43,18 @@
     }
   }
 }
+
+@media (max-width: 474px) {
+  .filter_parameter_list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: space-around;
+    align-items: center;
+    span {
+      display: flex;
+      justify-content: center;
+      // width: 45%;
+      margin: unset;
+    }
+  }
+}

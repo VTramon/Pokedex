@@ -1,39 +1,69 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
+export type Regions = 'Kanto' | 'Johto' | 'Hoenn' | 'Sinnoh' | 'Unova'
+
+export type Types =
+  | 'ball'
+  | 'squiggle'
+  | 'fish'
+  | 'arms'
+  | 'blob'
+  | 'upright'
+  | 'legs'
+  | 'quadruped'
+  | 'wings'
+  | 'tentacles'
+  | 'heads'
+  | 'humanoid'
+  | 'bug-wings'
+  | 'armor'
+
+export type Shapes =
+  | 'normal'
+  | 'fighting'
+  | 'flying'
+  | 'poison'
+  | 'ground'
+  | 'rock'
+  | 'bug'
+  | 'ghost'
+  | 'steel'
+  | 'fire'
+  | 'water'
+  | 'grass'
+  | 'electric'
+  | 'psychic'
+  | 'ice'
+  | 'dragon'
+  | 'dark'
+  | 'fairy'
+  | 'unknown'
+  | 'shadow'
 
 type FilterState = {
-  region?: 'Kanto' | 'Johto' | 'Hoenn' | 'Sinnoh' | 'Unova'
+  value?: Regions | Types | Shapes
 }
 
 const initialState: FilterState = {
-  region: undefined,
+  value: undefined,
 }
 
 const filterSlice = createSlice({
   name: 'filter',
   initialState,
   reducers: {
-    toKanto(state) {
-      state.region = 'Kanto'
+    toRegion(state, action: PayloadAction<Regions>) {
+      state.value = action.payload
     },
-    toJohto(state) {
-      state.region = 'Johto'
+    toType(state, action: PayloadAction<Types>) {
+      state.value = action.payload
     },
-    toHoenn(state) {
-      state.region = 'Hoenn'
-    },
-    toSinnoh(state) {
-      state.region = 'Sinnoh'
-    },
-    toUnova(state) {
-      state.region = 'Unova'
-    },
-    reset(state) {
-      state.region = undefined
+    toShape(state, action: PayloadAction<Shapes>) {
+      state.value = action.payload
     },
   },
 })
 
-export const { toHoenn, toJohto, toKanto, toSinnoh, toUnova } =
-  filterSlice.actions
+export const { toRegion, toShape, toType } = filterSlice.actions
 
 export default filterSlice.reducer

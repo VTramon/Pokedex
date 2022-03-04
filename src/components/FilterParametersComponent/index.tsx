@@ -1,16 +1,23 @@
 import styles from './FilterParametersComponent.module.scss'
 import { useDispatch } from 'react-redux'
 import {
-  toHoenn,
-  toJohto,
-  toKanto,
-  toSinnoh,
-  toUnova,
+  Regions,
+  Shapes,
+  toRegion,
+  toShape,
+  toType,
+  Types,
 } from '../../Redux/features/filter/filterSlice'
 import { FilterParametersProps } from '../Filter'
 
-const RegionParameter = ['Kanto', 'Johto', 'Hoenn', 'Sinnoh', 'Unova']
-const TypeParameter = [
+const RegionParameter: Regions[] = [
+  'Kanto',
+  'Johto',
+  'Hoenn',
+  'Sinnoh',
+  'Unova',
+]
+const TypeParameter: Types[] = [
   'ball',
   'squiggle',
   'fish',
@@ -26,7 +33,7 @@ const TypeParameter = [
   'bug-wings',
   'armor',
 ]
-const ShapeParameter = [
+const ShapeParameter: Shapes[] = [
   'normal',
   'fighting',
   'flying',
@@ -66,7 +73,7 @@ const ParametersComponent: React.FC<teste> = (props) => {
         ? RegionParameter.map((item, index) => {
             return (
               <span>
-                <button onClick={() => dispatch(toKanto())} value={item}>
+                <button onClick={() => dispatch(toRegion(item))} value={item}>
                   {item}
                 </button>
               </span>
@@ -76,7 +83,7 @@ const ParametersComponent: React.FC<teste> = (props) => {
         ? TypeParameter.map((item, index) => {
             return (
               <span>
-                <button onClick={() => dispatch(toKanto())} value={item}>
+                <button onClick={() => dispatch(toType(item))} value={item}>
                   {item}
                 </button>
               </span>
@@ -86,7 +93,7 @@ const ParametersComponent: React.FC<teste> = (props) => {
         ? ShapeParameter.map((item, index) => {
             return (
               <span>
-                <button onClick={() => dispatch(toKanto())} value={item}>
+                <button onClick={() => dispatch(toShape(item))} value={item}>
                   {item}
                 </button>
               </span>
