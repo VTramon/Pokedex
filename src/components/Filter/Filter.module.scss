@@ -1,3 +1,21 @@
+@import '../../GlobalStyles/variables';
+
+[data-theme='dark'] {
+  .filter {
+    nav {
+      border-bottom: 1px solid map-get($dark, filter-border-bottom);
+    }
+  }
+}
+
+[data-theme='light'] {
+  .filter {
+    nav {
+      border-bottom: 1px solid map-get($light, filter-border-bottom);
+    }
+  }
+}
+
 .filter {
   display: flex;
   flex-direction: column;
@@ -7,18 +25,14 @@
   min-height: 50px;
   max-height: 100px;
   margin-bottom: 50px;
-  border-radius: 20px;
   padding: 15px;
 
-  background-color: black;
-}
-
-.filter {
   nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
     width: 100%;
     height: 50%;
+    margin-bottom: 15px;
   }
 }

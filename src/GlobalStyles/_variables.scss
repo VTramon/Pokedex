@@ -1,19 +1,21 @@
 $dark: (
-  main-background: rgb(41, 41, 41),
+  main-background: #292929,
   header-background: #a57d05,
-  pokemon-card-background: rgb(43, 43, 43),
+  pokemon-card-background: #2b2b2b,
   pokemon-card-border: rgb(50, 50, 50),
-  pokemon-card-button-background: rgb(99, 99, 99),
-  font-color: rgb(228, 228, 228),
+  pokemon-card-button-background: #636363,
+  filter-border-bottom: #a57d05,
+  font-color: #e4e4e4,
 );
 
 $light: (
-  main-background: rgb(228, 228, 228),
-  header-background: rgb(196, 194, 218),
-  pokemon-card-background: rgb(226, 226, 226),
-  pokemon-card-border: rgb(215, 215, 215),
-  pokemon-card-button-background: rgb(180, 180, 180),
-  font-color: rgb(41, 41, 41),
+  main-background: #e4e4e4,
+  header-background: #c4c2da,
+  pokemon-card-background: #e2e2e2,
+  pokemon-card-border: #d7d7d7,
+  pokemon-card-button-background: #b4b4b4,
+  filter-border-bottom: #c4c2da,
+  font-color: #292929,
 );
 
 $colors: (
