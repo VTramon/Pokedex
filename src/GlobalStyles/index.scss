@@ -1,13 +1,13 @@
 @import './variables';
 
 [data-theme='light'] {
-  .header {
+  header {
     background-color: map-get($light, header-background);
 
     h1 {
-      color: map-get($colors, primary-header-h1);
+      color: map-get($light, primary-header-h1);
 
-      -webkit-text-stroke: 2px map-get($colors, secondary-header-h1); /* width and color */
+      -webkit-text-stroke: 1px map-get($light, secondary-header-h1); /* width and color */
     }
   }
   background-color: map-get($light, main-background);
@@ -19,8 +19,8 @@
     background-color: map-get($dark, header-background);
 
     h1 {
-      color: map-get($colors, primary-header-h1);
-      -webkit-text-stroke: 2px map-get($colors, secondary-header-h1); /* width and color */
+      color: map-get($dark, primary-header-h1);
+      -webkit-text-stroke: 1px map-get($dark, secondary-header-h1); /* width and color */
     }
   }
   background-color: map-get($dark, main-background);

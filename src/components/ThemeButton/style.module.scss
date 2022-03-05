@@ -1,13 +1,8 @@
-[data-theme='dark'] {
-  .button {
-    color: white;
-  }
-}
-
 .button {
   height: 50px;
   width: 50px;
   background-color: transparent;
+  color: white;
   cursor: pointer;
 
   img {
