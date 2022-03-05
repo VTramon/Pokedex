@@ -17,43 +17,43 @@ const RegionParameter: Regions[] = [
   'Sinnoh',
   'Unova',
 ]
-const TypeParameter: Types[] = [
-  'ball',
-  'squiggle',
-  'fish',
-  'arms',
-  'blob',
-  'upright',
-  'legs',
-  'quadruped',
-  'wings',
-  'tentacles',
-  'heads',
-  'humanoid',
-  'bug-wings',
-  'armor',
-]
 const ShapeParameter: Shapes[] = [
-  'normal',
-  'fighting',
-  'flying',
-  'poison',
-  'ground',
-  'rock',
-  'bug',
-  'ghost',
-  'steel',
-  'fire',
-  'water',
-  'grass',
-  'electric',
-  'psychic',
-  'ice',
-  'dragon',
-  'dark',
-  'fairy',
-  'unknown',
-  'shadow',
+  'Ball',
+  'Squiggle',
+  'Fish',
+  'Arms',
+  'Blob',
+  'Upright',
+  'Legs',
+  'Quadruped',
+  'Wings',
+  'Tentacles',
+  'Heads',
+  'Humanoid',
+  'BugWings',
+  'Armor',
+]
+const TypeParameter: Types[] = [
+  'Normal',
+  'Fighting',
+  'Flying',
+  'Poison',
+  'Ground',
+  'Rock',
+  'Bug',
+  'Ghost',
+  'Steel',
+  'Fire',
+  'Water',
+  'Grass',
+  'Electric',
+  'Psychic',
+  'Ice',
+  'Dragon',
+  'Dark',
+  'Fairy',
+  'Unknown',
+  'Shadow',
 ]
 
 type teste = {
@@ -72,8 +72,12 @@ const ParametersComponent: React.FC<teste> = (props) => {
       {props.value === 'region'
         ? RegionParameter.map((item, index) => {
             return (
-              <span>
-                <button onClick={() => dispatch(toRegion(item))} value={item}>
+              <span key={index + 'region_span'}>
+                <button
+                  key={index + 'region_button'}
+                  onClick={() => dispatch(toRegion(item))}
+                  value={item}
+                >
                   {item}
                 </button>
               </span>
@@ -82,8 +86,12 @@ const ParametersComponent: React.FC<teste> = (props) => {
         : props.value === 'type'
         ? TypeParameter.map((item, index) => {
             return (
-              <span>
-                <button onClick={() => dispatch(toType(item))} value={item}>
+              <span key={index + 'shape_span'}>
+                <button
+                  key={index + 'shape_button'}
+                  onClick={() => dispatch(toType(item))}
+                  value={item}
+                >
                   {item}
                 </button>
               </span>
@@ -92,8 +100,12 @@ const ParametersComponent: React.FC<teste> = (props) => {
         : props.value === 'shape'
         ? ShapeParameter.map((item, index) => {
             return (
-              <span>
-                <button onClick={() => dispatch(toShape(item))} value={item}>
+              <span key={index + 'shape_span'}>
+                <button
+                  key={index + 'shape_button'}
+                  onClick={() => dispatch(toShape(item))}
+                  value={item}
+                >
                   {item}
                 </button>
               </span>

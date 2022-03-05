@@ -2,50 +2,54 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export type Regions = 'Kanto' | 'Johto' | 'Hoenn' | 'Sinnoh' | 'Unova'
 
-export type Types =
-  | 'ball'
-  | 'squiggle'
-  | 'fish'
-  | 'arms'
-  | 'blob'
-  | 'upright'
-  | 'legs'
-  | 'quadruped'
-  | 'wings'
-  | 'tentacles'
-  | 'heads'
-  | 'humanoid'
-  | 'bug-wings'
-  | 'armor'
-
 export type Shapes =
-  | 'normal'
-  | 'fighting'
-  | 'flying'
-  | 'poison'
-  | 'ground'
-  | 'rock'
-  | 'bug'
-  | 'ghost'
-  | 'steel'
-  | 'fire'
-  | 'water'
-  | 'grass'
-  | 'electric'
-  | 'psychic'
-  | 'ice'
-  | 'dragon'
-  | 'dark'
-  | 'fairy'
-  | 'unknown'
-  | 'shadow'
+  | 'Ball'
+  | 'Squiggle'
+  | 'Fish'
+  | 'Arms'
+  | 'Blob'
+  | 'Upright'
+  | 'Legs'
+  | 'Quadruped'
+  | 'Wings'
+  | 'Tentacles'
+  | 'Heads'
+  | 'Humanoid'
+  | 'BugWings'
+  | 'Armor'
 
-type FilterState = {
-  value?: Regions | Types | Shapes
+export type Types =
+  | 'Normal'
+  | 'Fighting'
+  | 'Flying'
+  | 'Poison'
+  | 'Ground'
+  | 'Rock'
+  | 'Bug'
+  | 'Ghost'
+  | 'Steel'
+  | 'Fire'
+  | 'Water'
+  | 'Grass'
+  | 'Electric'
+  | 'Psychic'
+  | 'Ice'
+  | 'Dragon'
+  | 'Dark'
+  | 'Fairy'
+  | 'Unknown'
+  | 'Shadow'
+
+export type FilterState = {
+  region?: Regions
+  type?: Types
+  shape?: Shapes
 }
 
 const initialState: FilterState = {
-  value: undefined,
+  region: undefined,
+  type: undefined,
+  shape: undefined,
 }
 
 const filterSlice = createSlice({
@@ -53,13 +57,19 @@ const filterSlice = createSlice({
   initialState,
   reducers: {
     toRegion(state, action: PayloadAction<Regions>) {
-      state.value = action.payload
+      state.shape = undefined
+      state.type = undefined
+      state.region = action.payload
     },
     toType(state, action: PayloadAction<Types>) {
-      state.value = action.payload
+      state.shape = undefined
+      state.region = undefined
+      state.type = action.payload
     },
     toShape(state, action: PayloadAction<Shapes>) {
-      state.value = action.payload
+      state.region = undefined
+      state.type = undefined
+      state.shape = action.payload
     },
   },
 })
