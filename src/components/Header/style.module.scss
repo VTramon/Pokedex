@@ -1,5 +1,4 @@
 @import '../../GlobalStyles/variables';
-@import url('https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@900&display=swap');
 
 [data-theme='dark'] {
   .header {
@@ -35,7 +34,8 @@
 
   h1 {
     font-size: 3em;
-    font-family: 'Londrina Solid', cursive;
+    font-family: 'Signika', sans-serif;
+    font-weight: 700;
   }
 
   > div {
