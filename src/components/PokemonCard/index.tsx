@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import styles from './PokemonCard.module.scss'
 
 type PokemonCardProps = {
@@ -9,11 +10,13 @@ type PokemonCardProps = {
 const PokemonCard: React.FC<PokemonCardProps> = (props) => {
   return (
     <div data-testid="pokemon-card" className={styles.card}>
-      <a href="#_blank">
-        <img src={props.img} alt={props.alt} />
+      <Link href={`/pokemon/${props.name}`}>
+        <a>
+          <img src={props.img} alt={props.alt} />
 
-        <h3>{props.name}</h3>
-      </a>
+          <h3>{props.name}</h3>
+        </a>
+      </Link>
     </div>
   )
 }
