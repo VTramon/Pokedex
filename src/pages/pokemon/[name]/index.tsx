@@ -107,10 +107,15 @@ type pageProps = {
 }
 
 const Pokemon = ({ pokemon }: pageProps) => {
-  return <div> name: {pokemon.name}</div>
+  return (
+    <main>
+      <h1>{pokemon.name}</h1>
+      <img src={pokemon.sprites.front_default} alt={`${pokemon.name} image`} />
+    </main>
+  )
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
+const getStaticPaths: GetStaticPaths = async () => {
   const pokemons = (
     await axios.get('https://pokeapi.co/api/v2/pokemon?limit=1200')
   ).data
@@ -129,7 +134,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export const getStaticProps: GetStaticProps = async (
+const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
   const { params } = context
@@ -147,3 +152,5 @@ export const getStaticProps: GetStaticProps = async (
 }
 
 export default Pokemon
+
+export { getStaticPaths, getStaticProps }

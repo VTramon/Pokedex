@@ -1,0 +1,31 @@
+@import '../../GlobalStyles/variables';
+
+[data-theme='dark'] {
+  .input {
+    background-color: map-get($dark, search-background);
+    border: 1px solid map-get($dark, search-border);
+  }
+}
+
+[data-theme='light'] {
+  .input {
+    background-color: map-get($light, search-background);
+    border: 1px solid map-get($light, search-border);
+  }
+}
+
+.form {
+  width: 60%;
+  height: 30px;
+}
+
+.input {
+  height: 100%;
+  width: 100%;
+  padding: 0 20px;
+
+  &:active {
+    background-color: unset;
+    border: unset;
+  }
+}

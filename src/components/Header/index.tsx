@@ -1,3 +1,4 @@
+import SearchBar from '../SearchBar'
 import ThemeButton from '../ThemeButton'
 import styles from './style.module.scss'
 
