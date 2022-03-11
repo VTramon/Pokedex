@@ -4,13 +4,17 @@ import { RequestData } from 'next/dist/server/web/types'
 import { useRouter } from 'next/router'
 import { ParsedUrlQuery } from 'querystring'
 import { useEffect } from 'react'
+import Header from '../../../components/Header'
+import PokemonDetails from '../../../components/PokemonDetails'
+import { useAppSelector } from '../../../Redux/app/hooks'
+import styles from './index.module.scss'
 
 type pokemonBaseProps = {
   name: string
   url: string
 }
 
-type PokemonProps = {
+export type PokemonProps = {
   abilities: [
     {
       ability: {
@@ -79,6 +83,11 @@ type PokemonProps = {
     back_shiny: string
     front_default: string
     front_shiny: string
+    other: {
+      'official-artwork': {
+        front_default: string
+      }
+    }
   }
   stats: [
     {
@@ -107,11 +116,15 @@ type pageProps = {
 }
 
 const Pokemon = ({ pokemon }: pageProps) => {
+  const theme = useAppSelector((state) => state.theme.value)
+
   return (
-    <main>
-      <h1>{pokemon.name}</h1>
-      <img src={pokemon.sprites.front_default} alt={`${pokemon.name} image`} />
-    </main>
+    <div id="__content" data-theme={theme}>
+      <Header />
+      <main className={styles.pokemon_page}>
+        <PokemonDetails pokemon={pokemon} />
+      </main>
+    </div>
   )
 }
 
