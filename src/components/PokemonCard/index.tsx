@@ -14,6 +14,7 @@ const PokemonCard: React.FC<PokemonCardProps> = (props) => {
       <Link href={`/pokemon/${props.name}`}>
         <a>
           <img
+            loading="lazy"
             onLoad={() => props.onLoading()}
             src={props.img}
             alt={props.alt}

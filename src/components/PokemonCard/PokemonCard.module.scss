@@ -31,10 +31,9 @@
   img {
     width: 100%;
     border-radius: 10px;
+
     &:hover {
       transform: scale(1.08);
-      // outline: rgba(73, 72, 72, 0.562) solid 1px;
-      // transition: all 0s ease-in-out 0s;
     }
   }
 

@@ -4,18 +4,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.322);
+  background-color: rgba(0, 0, 0, 0.911);
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 10;
 }
 
 .loader {
   width: 100px;
   height: 100px;
   animation: rotation 2s infinite linear;
+  z-index: 10;
 
   @keyframes rotation {
     from {
