@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios'
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import {
   GetAllPokemons,
   GetArmorShapePokemons,
@@ -50,6 +50,7 @@ import {
   Shapes,
   Types,
 } from '../../Redux/features/filter/filterSlice'
+import Loader from '../Loader'
 
 type pokemonProps = {
   url: string
@@ -71,6 +72,7 @@ type GetTypePokemonsProps = [
 ]
 
 const PokemonContainer = () => {
+  const [status, setStatus] = useState({ loading: true })
   const [pokemons, setPokemons] = useState<pokemonProps[]>()
   const [numberOfPokemonsListed, setNumberOfPokemonsListed] = useState(100)
 
@@ -336,11 +338,12 @@ const PokemonContainer = () => {
       ?.slice(0, numberOfPokemonsListed)
       .map((item, index) => {
         // get the pokemon id using the url
+
         const itemSplit = pokemons[index].url.split('/')
         const imgNumber = itemSplit[itemSplit.length - 2]
-        // console.log(imgNumber)
         return (
           <PokemonCard
+            onLoading={() => setStatus({ loading: false })}
             name={item.name}
             key={index}
             img={ReturnTheCorrectPokemonImageNumbers(parseInt(imgNumber))}
@@ -363,19 +366,22 @@ const PokemonContainer = () => {
   }, [parameters])
 
   return (
-    <section
-      className={styles.outter_container}
-      data-testid="pokemon-container"
-    >
-      <div className={styles.container}>{HandleCard()}</div>
-      <button
-        data-testid="container-button"
-        onClick={() => setNumberOfPokemonsListed((state) => state + 100)}
-        disabled={numberOfPokemonsListed >= 1126 ? true : false}
+    <>
+      {status.loading === true && <Loader />}
+      <section
+        className={styles.outter_container}
+        data-testid="pokemon-container"
       >
-        more
-      </button>
-    </section>
+        <div className={styles.container}>{HandleCard()}</div>
+        <button
+          data-testid="container-button"
+          onClick={() => setNumberOfPokemonsListed((state) => state + 100)}
+          disabled={numberOfPokemonsListed >= 1126 ? true : false}
+        >
+          more
+        </button>
+      </section>
+    </>
   )
 }
 

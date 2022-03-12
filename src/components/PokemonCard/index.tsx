@@ -5,6 +5,7 @@ type PokemonCardProps = {
   img: string
   alt: string
   name: string
+  onLoading: () => void
 }
 
 const PokemonCard: React.FC<PokemonCardProps> = (props) => {
@@ -12,7 +13,11 @@ const PokemonCard: React.FC<PokemonCardProps> = (props) => {
     <div data-testid="pokemon-card" className={styles.card}>
       <Link href={`/pokemon/${props.name}`}>
         <a>
-          <img src={props.img} alt={props.alt} />
+          <img
+            onLoad={() => props.onLoading()}
+            src={props.img}
+            alt={props.alt}
+          />
 
           <h3>{props.name}</h3>
         </a>
