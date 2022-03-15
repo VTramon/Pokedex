@@ -59,7 +59,7 @@ const filterSlice = createSlice({
     unset(state) {
       state.region = undefined
       state.type = undefined
-      state.region = undefined
+      state.shape = undefined
     },
     toRegion(state, action: PayloadAction<Regions>) {
       state.shape = undefined

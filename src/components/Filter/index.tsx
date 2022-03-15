@@ -54,7 +54,7 @@ const Filter = () => {
 
   useEffect(() => {
     handleParametersThatAreNotUndefined()
-    console.log(parametersThatAreNotUndefined)
+    console.log(parameter)
   }, [parameter])
 
   return (
