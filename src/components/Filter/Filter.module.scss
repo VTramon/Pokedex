@@ -6,6 +6,13 @@
       border-bottom: 1px solid map-get($dark, filter-border-bottom);
     }
   }
+
+  .reset_button {
+    background-color: map-get($dark, reset-filter-button-background);
+    color: map-get($dark, reset-filter-button-color);
+    // color: white;
+    // -webkit-text-stroke: 0.1px black;
+  }
 }
 
 [data-theme='light'] {
@@ -13,6 +20,11 @@
     nav {
       border-bottom: 1px solid map-get($light, filter-border-bottom);
     }
+  }
+
+  .reset_button {
+    background-color: map-get($light, reset-filter-button-background);
+    color: map-get($light, reset-filter-button-color);
   }
 }
 
@@ -44,5 +56,19 @@
 @media (max-width: 474px) {
   .filter {
     width: 90vw;
+  }
+}
+
+.reset_button {
+  font-size: 1.3em;
+  font-weight: 700;
+  margin-top: 20px;
+  border-radius: 5px;
+  padding: 5px 15px;
+  cursor: pointer;
+
+  &:hover {
+    transition: ease-in-out 0.2s;
+    transform: scale(1.1);
   }
 }

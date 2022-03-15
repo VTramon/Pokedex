@@ -56,6 +56,11 @@ const filterSlice = createSlice({
   name: 'filter',
   initialState,
   reducers: {
+    unset(state) {
+      state.region = undefined
+      state.type = undefined
+      state.region = undefined
+    },
     toRegion(state, action: PayloadAction<Regions>) {
       state.shape = undefined
       state.type = undefined
@@ -74,6 +79,6 @@ const filterSlice = createSlice({
   },
 })
 
-export const { toRegion, toShape, toType } = filterSlice.actions
+export const { unset, toRegion, toShape, toType } = filterSlice.actions
 
 export default filterSlice.reducer

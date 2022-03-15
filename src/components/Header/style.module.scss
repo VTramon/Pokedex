@@ -1,28 +1,5 @@
 @import '../../GlobalStyles/variables';
 
-// [data-theme='dark'] {
-//   .header {
-//     background-color: map-get($dark, header-background);
-
-//     h1 {
-//       color: map-get($dark, primary-header-h1);
-//       -webkit-text-stroke: 2px map-get($dark, secondary-header-h1); /* width and color */
-//     }
-//   }
-// }
-
-// [data-theme='light'] {
-//   .header {
-//     background-color: map-get($light, header-background);
-
-//     h1 {
-//       color: map-get($light, primary-header-h1);
-
-//       -webkit-text-stroke: 2px map-get($light, secondary-header-h1); /* width and color */
-//     }
-//   }
-// }
-
 .header {
   display: flex;
   justify-content: space-between;
