@@ -1,5 +1,5 @@
-import { render, screen } from '../../test-utils'
 import Header from '.'
+import { render, screen } from '../../test-utils'
 
 describe('testing the header component', () => {
   it('should render the header', () => {
