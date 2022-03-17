@@ -1,4 +1,3 @@
-import styles from './FilterParametersComponent.module.scss'
 import { useDispatch } from 'react-redux'
 import {
   Regions,
@@ -8,7 +7,8 @@ import {
   toType,
   Types,
 } from '../../Redux/features/filter/filterSlice'
-import { FilterParametersProps } from '../Filter'
+import { FilterParametersProps } from '../Filter/FilterTypes'
+import styles from './FilterParametersComponent.module.scss'
 
 const RegionParameter: Regions[] = [
   'Kanto',
@@ -17,6 +17,7 @@ const RegionParameter: Regions[] = [
   'Sinnoh',
   'Unova',
 ]
+
 const ShapeParameter: Shapes[] = [
   'Ball',
   'Squiggle',
@@ -33,6 +34,7 @@ const ShapeParameter: Shapes[] = [
   'BugWings',
   'Armor',
 ]
+
 const TypeParameter: Types[] = [
   'Normal',
   'Fighting',

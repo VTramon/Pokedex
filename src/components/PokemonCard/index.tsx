@@ -1,12 +1,6 @@
 import Link from 'next/link'
 import styles from './PokemonCard.module.scss'
-
-type PokemonCardProps = {
-  img: string
-  alt: string
-  name: string
-  onLoading: () => void
-}
+import { PokemonCardProps } from './PokemonCardTypes'
 
 const PokemonCard: React.FC<PokemonCardProps> = (props) => {
   return (

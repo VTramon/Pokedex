@@ -1,5 +1,11 @@
 import { AxiosResponse } from 'axios'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useAppSelector } from '../../Redux/app/hooks'
+import {
+  FilterState,
+  Shapes,
+  Types,
+} from '../../Redux/features/filter/filterSlice'
 import {
   GetAllPokemons,
   GetArmorShapePokemons,
@@ -42,34 +48,15 @@ import {
   GetWaterPokemons,
   GetWingsShapePokemons,
 } from '../../service'
+import Loader from '../Loader'
 import PokemonCard from '../PokemonCard'
 import styles from './PokemonContainer.module.scss'
-import { useAppSelector } from '../../Redux/app/hooks'
 import {
-  FilterState,
-  Shapes,
-  Types,
-} from '../../Redux/features/filter/filterSlice'
-import Loader from '../Loader'
-
-type pokemonProps = {
-  url: string
-  name: string
-}
-
-type GetAllPokemonsProps = {
-  results: pokemonProps[]
-}
-
-type GetRegionPokemonsProps = {
-  pokemon_species: pokemonProps
-}
-
-type GetTypePokemonsProps = [
-  {
-    pokemon: pokemonProps
-  }
-]
+  GetAllPokemonsProps,
+  GetRegionPokemonsProps,
+  GetTypePokemonsProps,
+  pokemonProps,
+} from './PokemonContainerTypes'
 
 const PokemonContainer = () => {
   const [status, setStatus] = useState({ loading: true })
