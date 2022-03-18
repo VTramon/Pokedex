@@ -14,7 +14,7 @@ const PokemonCard: React.FC<PokemonCardProps> = (props) => {
             alt={props.alt}
           />
 
-          <h3>{props.name}</h3>
+          {props.name ? <h3>{props.name}</h3> : undefined}
         </a>
       </Link>
     </div>

@@ -1,53 +1,12 @@
 import { AxiosResponse } from 'axios'
 import { useEffect, useState } from 'react'
+import { pokemonRequests } from 'src/service'
 import { useAppSelector } from '../../Redux/app/hooks'
 import {
   FilterState,
   Shapes,
   Types,
 } from '../../Redux/features/filter/filterSlice'
-import {
-  GetAllPokemons,
-  GetArmorShapePokemons,
-  GetArmsShapePokemons,
-  GetBallShapePokemons,
-  GetBlobShapePokemons,
-  GetBugPokemons,
-  GetBugwingsShapePokemons,
-  GetDarkPokemons,
-  GetDragonPokemons,
-  GetElectricPokemons,
-  GetFairyPokemons,
-  GetFightingPokemons,
-  GetFirePokemons,
-  GetFishShapePokemons,
-  GetFlyingPokemons,
-  GetGhostPokemons,
-  GetGrassPokemons,
-  GetGroundPokemons,
-  GetHeadsShapePokemons,
-  GetHoennPokemons,
-  GetHumanoidShapePokemons,
-  GetIcePokemons,
-  GetJohtoPokemons,
-  GetKantoPokemons,
-  GetLegsShapePokemons,
-  GetNormalPokemons,
-  GetPoisonPokemons,
-  GetPsychicPokemons,
-  GetQuadrupedShapePokemons,
-  GetRockPokemons,
-  GetShadowPokemons,
-  GetSinnohPokemons,
-  GetSquiggleShapePokemons,
-  GetSteelPokemons,
-  GetTentaclesShapePokemons,
-  GetUnknownPokemons,
-  GetUnovaPokemons,
-  GetUprightShapePokemons,
-  GetWaterPokemons,
-  GetWingsShapePokemons,
-} from '../../service'
 import Loader from '../Loader'
 import PokemonCard from '../PokemonCard'
 import styles from './PokemonContainer.module.scss'
@@ -95,19 +54,19 @@ const PokemonContainer = () => {
     } else {
       switch (region) {
         case 'Kanto': {
-          return HandleRequest(GetKantoPokemons)
+          return HandleRequest(pokemonRequests.GetKantoPokemons)
         }
         case 'Johto': {
-          return HandleRequest(GetJohtoPokemons)
+          return HandleRequest(pokemonRequests.GetJohtoPokemons)
         }
         case 'Hoenn': {
-          return HandleRequest(GetHoennPokemons)
+          return HandleRequest(pokemonRequests.GetHoennPokemons)
         }
         case 'Sinnoh': {
-          return HandleRequest(GetSinnohPokemons)
+          return HandleRequest(pokemonRequests.GetSinnohPokemons)
         }
         case 'Unova': {
-          return HandleRequest(GetUnovaPokemons)
+          return HandleRequest(pokemonRequests.GetUnovaPokemons)
         }
       }
     }
@@ -134,83 +93,82 @@ const PokemonContainer = () => {
     } else {
       switch (type) {
         case 'Normal': {
-          // console.log(type)
-          return HandleRequest(GetNormalPokemons)
+          return HandleRequest(pokemonRequests.GetNormalPokemons)
         }
         case 'Fighting': {
-          HandleRequest(GetFightingPokemons)
+          HandleRequest(pokemonRequests.GetFightingPokemons)
           break
         }
         case 'Flying': {
-          HandleRequest(GetFlyingPokemons)
+          HandleRequest(pokemonRequests.GetFlyingPokemons)
           break
         }
         case 'Poison': {
-          HandleRequest(GetPoisonPokemons)
+          HandleRequest(pokemonRequests.GetPoisonPokemons)
           break
         }
         case 'Ground': {
-          HandleRequest(GetGroundPokemons)
+          HandleRequest(pokemonRequests.GetGroundPokemons)
           break
         }
         case 'Rock': {
-          HandleRequest(GetRockPokemons)
+          HandleRequest(pokemonRequests.GetRockPokemons)
           break
         }
         case 'Bug': {
-          HandleRequest(GetBugPokemons)
+          HandleRequest(pokemonRequests.GetBugPokemons)
           break
         }
         case 'Ghost': {
-          HandleRequest(GetGhostPokemons)
+          HandleRequest(pokemonRequests.GetGhostPokemons)
           break
         }
         case 'Steel': {
-          HandleRequest(GetSteelPokemons)
+          HandleRequest(pokemonRequests.GetSteelPokemons)
           break
         }
         case 'Fire': {
-          HandleRequest(GetFirePokemons)
+          HandleRequest(pokemonRequests.GetFirePokemons)
           break
         }
         case 'Water': {
-          HandleRequest(GetWaterPokemons)
+          HandleRequest(pokemonRequests.GetWaterPokemons)
           break
         }
         case 'Grass': {
-          HandleRequest(GetGrassPokemons)
+          HandleRequest(pokemonRequests.GetGrassPokemons)
           break
         }
         case 'Electric': {
-          HandleRequest(GetElectricPokemons)
+          HandleRequest(pokemonRequests.GetElectricPokemons)
           break
         }
         case 'Psychic': {
-          HandleRequest(GetPsychicPokemons)
+          HandleRequest(pokemonRequests.GetPsychicPokemons)
           break
         }
         case 'Ice': {
-          HandleRequest(GetIcePokemons)
+          HandleRequest(pokemonRequests.GetIcePokemons)
           break
         }
         case 'Dragon': {
-          HandleRequest(GetDragonPokemons)
+          HandleRequest(pokemonRequests.GetDragonPokemons)
           break
         }
         case 'Dark': {
-          HandleRequest(GetDarkPokemons)
+          HandleRequest(pokemonRequests.GetDarkPokemons)
           break
         }
         case 'Fairy': {
-          HandleRequest(GetFairyPokemons)
+          HandleRequest(pokemonRequests.GetFairyPokemons)
           break
         }
         case 'Unknown': {
-          HandleRequest(GetUnknownPokemons)
+          HandleRequest(pokemonRequests.GetUnknownPokemons)
           break
         }
         case 'Shadow': {
-          HandleRequest(GetShadowPokemons)
+          HandleRequest(pokemonRequests.GetShadowPokemons)
           break
         }
       }
@@ -236,59 +194,59 @@ const PokemonContainer = () => {
     } else {
       switch (shape) {
         case 'Ball': {
-          HandleRequest(GetBallShapePokemons)
+          HandleRequest(pokemonRequests.GetBallShapePokemons)
           break
         }
         case 'Squiggle': {
-          HandleRequest(GetSquiggleShapePokemons)
+          HandleRequest(pokemonRequests.GetSquiggleShapePokemons)
           break
         }
         case 'Fish': {
-          HandleRequest(GetFishShapePokemons)
+          HandleRequest(pokemonRequests.GetFishShapePokemons)
           break
         }
         case 'Arms': {
-          HandleRequest(GetArmsShapePokemons)
+          HandleRequest(pokemonRequests.GetArmsShapePokemons)
           break
         }
         case 'Blob': {
-          HandleRequest(GetBlobShapePokemons)
+          HandleRequest(pokemonRequests.GetBlobShapePokemons)
           break
         }
         case 'Upright': {
-          HandleRequest(GetUprightShapePokemons)
+          HandleRequest(pokemonRequests.GetUprightShapePokemons)
           break
         }
         case 'Legs': {
-          HandleRequest(GetLegsShapePokemons)
+          HandleRequest(pokemonRequests.GetLegsShapePokemons)
           break
         }
         case 'Quadruped': {
-          HandleRequest(GetQuadrupedShapePokemons)
+          HandleRequest(pokemonRequests.GetQuadrupedShapePokemons)
           break
         }
         case 'Wings': {
-          HandleRequest(GetWingsShapePokemons)
+          HandleRequest(pokemonRequests.GetWingsShapePokemons)
           break
         }
         case 'Tentacles': {
-          HandleRequest(GetTentaclesShapePokemons)
+          HandleRequest(pokemonRequests.GetTentaclesShapePokemons)
           break
         }
         case 'Heads': {
-          HandleRequest(GetHeadsShapePokemons)
+          HandleRequest(pokemonRequests.GetHeadsShapePokemons)
           break
         }
         case 'Humanoid': {
-          HandleRequest(GetHumanoidShapePokemons)
+          HandleRequest(pokemonRequests.GetHumanoidShapePokemons)
           break
         }
         case 'BugWings': {
-          HandleRequest(GetBugwingsShapePokemons)
+          HandleRequest(pokemonRequests.GetBugwingsShapePokemons)
           break
         }
         case 'Armor': {
-          HandleRequest(GetArmorShapePokemons)
+          HandleRequest(pokemonRequests.GetArmorShapePokemons)
           break
         }
       }
@@ -299,7 +257,9 @@ const PokemonContainer = () => {
     if (storage) {
       setPokemons(JSON.parse(storage))
     } else {
-      const response: GetAllPokemonsProps = (await GetAllPokemons).data
+      const response: GetAllPokemonsProps = (
+        await pokemonRequests.GetAllPokemons
+      ).data
 
       const result: pokemonProps[] = response['results']!.map((item) => {
         return item

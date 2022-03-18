@@ -122,7 +122,6 @@ const FilterParametersComponent = (props: ParametersProps) => {
   const HandleWhichParametersWillBeRendered = (
     value: FilterParametersProps
   ) => {
-    // console.log()
     switch (value) {
       case 'region': {
         return <ParametersComponent value="region" />
