@@ -1,9 +1,5 @@
 import axios from 'axios'
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next'
-import { RequestData } from 'next/dist/server/web/types'
-import { useRouter } from 'next/router'
-import { ParsedUrlQuery } from 'querystring'
-import { useEffect } from 'react'
 import Header from '../../../components/Header'
 import PokemonDetails from '../../../components/PokemonDetails'
 import { useAppSelector } from '../../../Redux/app/hooks'
@@ -151,7 +147,6 @@ const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
   const { params } = context
-  // console.log(params)
 
   const pokemon: PokemonProps = (
     await axios.get(`https://pokeapi.co/api/v2/pokemon/${params!.name}`)

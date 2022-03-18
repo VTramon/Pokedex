@@ -1,38 +1,33 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { PokemonProps } from '../../pages/pokemon/[name]'
+import { GetPokemon } from 'src/service'
 import styles from './PokemonDetails.module.scss'
-
-type PokemonDetailsProps = {
-  pokemon: PokemonProps
-}
-
-type PokemonSpecies = {
-  evolution_chain: {
-    url: string
-  }
-  habitat: {
-    name: string
-  }
-}
-
-type EvolutionProps = {
-  evolves_to: EvolutionProps[]
-  species: {
-    name: string
-    url: string
-  }
-}
-
-type PokemonEvolution = {
-  chain: {
-    evolves_to: EvolutionProps[]
-  }
-}
+import {
+  PokemonDetailsProps,
+  PokemonEvolution,
+  PokemonEvolutionPhoto,
+  PokemonSpecies,
+  weakness,
+} from './PokemonDetailsTypes'
 
 const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
   const [species, setSpecies] = useState<PokemonSpecies>()
-  const [evolution, setEvolution] = useState<PokemonEvolution>()
+  const [evolutionRawData, setEvolutionRawData] = useState<PokemonEvolution>()
+  const [evolutionChain, setEvolutionChain] = useState<
+    { name: string; image: string }[]
+  >([])
+
+  const normal: [string] = Object.assign(weakness.Normal)
+  const bug: [string] = Object.assign(weakness.Bug)
+
+  // useEffect(() => {
+  //   normal.map((item: string) => {
+  //     const hasEqualValue = bug.some((elem) => elem === item)
+  //     if (!hasEqualValue) {
+  //       bug.push(item)
+  //     }
+  //   })
+  // }, [])
 
   const handlePokemonDetails = async () => {
     const speciesResponse: PokemonSpecies = (
@@ -44,15 +39,55 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
     const evolutionResponse: PokemonEvolution = (
       await axios.get(speciesResponse.evolution_chain.url)
     ).data
-    setEvolution(evolutionResponse)
+    setEvolutionRawData(evolutionResponse)
 
     setSpecies(speciesResponse)
   }
 
+  const handleImagesFromChainEvolution = async (pokemonName: string) => {
+    const response: PokemonEvolutionPhoto = (await GetPokemon(pokemonName)).data
+    const result = response.sprites.other['official-artwork'].front_default
+    return result
+  }
+
+  const handleEvolutionChain = async () => {
+    const evolutions: { name: string; image: string }[] = []
+
+    const first = evolutionRawData?.chain
+    if (first) {
+      const firstImage: string = await handleImagesFromChainEvolution(
+        first?.species.name!
+      )
+      evolutions.push({ name: first?.species.name!, image: firstImage })
+
+      if (first?.evolves_to && first?.evolves_to.length > 0) {
+        const second = first.evolves_to[0]
+        const secondImage: string = await handleImagesFromChainEvolution(
+          second?.species.name!
+        )
+        evolutions.push({ name: second.species.name, image: secondImage })
+
+        if (second?.evolves_to && second?.evolves_to.length > 0) {
+          const third = second.evolves_to[0]
+          const thirdImage: string = await handleImagesFromChainEvolution(
+            third?.species.name!
+          )
+          evolutions.push({ name: third.species.name, image: thirdImage })
+        }
+      }
+    }
+    console.log(evolutions)
+    setEvolutionChain(evolutions)
+  }
+
   useEffect(() => {
     handlePokemonDetails()
-    console.log(evolution)
   }, [])
+
+  useEffect(() => {
+    console.log('evolutions')
+    handleEvolutionChain()
+  }, [evolutionRawData])
 
   return (
     <div className={styles.container}>
@@ -84,16 +119,16 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
       <div className={styles.type}>
         <p>
           <b>Type(s): </b>
-          {props.pokemon.types.map((item) => {
-            return item.type.name
+          {props.pokemon.types.map((item, index) => {
+            return <span key={`${index}  ${item}`}>item.type.name</span>
           })}
         </p>
       </div>
       <br />
       <div>
         <h4>Abilities:</h4>
-        {props.pokemon.abilities.map((item) => {
-          return <p>{item.ability.name}</p>
+        {props.pokemon.abilities.map((item, index) => {
+          return <p key={`${index}  ${item}`}>{item.ability.name}</p>
         })}
       </div>
 
@@ -102,16 +137,31 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
       <div className={styles.pokemon_stats}>
         <h4>Stats:</h4>
 
-        {props.pokemon.stats.map((item) => {
+        {props.pokemon.stats.map((item, index) => {
           return (
-            <p>
+            <p key={`${index}  ${item}`}>
               {item.stat.name}: {item.base_stat}
             </p>
           )
         })}
       </div>
 
-      <div className={styles.evolutions}></div>
+      <div className={styles.evolutions}>
+        {evolutionChain
+          ? evolutionChain.map((item, index) => {
+              return (
+                <>
+                  <img
+                    key={`${index}  ${item.image}`}
+                    src={item.image}
+                    alt={`imagem do pokemon ${item.name}`}
+                  />
+                  <h2 key={`${index}  ${item.name}`}>{item.name}</h2>
+                </>
+              )
+            })
+          : undefined}
+      </div>
     </div>
   )
 }
