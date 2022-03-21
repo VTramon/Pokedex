@@ -76,6 +76,7 @@ const ParametersComponent: React.FC<teste> = (props) => {
             return (
               <span key={index + 'region_span'}>
                 <button
+                  data-testid="filter_region_parameters"
                   key={index + 'region_button'}
                   onClick={() => dispatch(toRegion(item))}
                   value={item}
@@ -90,6 +91,7 @@ const ParametersComponent: React.FC<teste> = (props) => {
             return (
               <span key={index + 'shape_span'}>
                 <button
+                  data-testid="filter_type_parameters"
                   key={index + 'shape_button'}
                   onClick={() => dispatch(toType(item))}
                   value={item}
@@ -104,6 +106,7 @@ const ParametersComponent: React.FC<teste> = (props) => {
             return (
               <span key={index + 'shape_span'}>
                 <button
+                  data-testid="filter_shape_parameters"
                   key={index + 'shape_button'}
                   onClick={() => dispatch(toShape(item))}
                   value={item}

@@ -76,16 +76,15 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
         }
       }
     }
-    console.log(evolutions)
     setEvolutionChain(evolutions)
   }
 
   useEffect(() => {
+    // console.log(props.pokemon)
     handlePokemonDetails()
   }, [])
 
   useEffect(() => {
-    console.log('evolutions')
     handleEvolutionChain()
   }, [evolutionRawData])
 
@@ -135,13 +134,22 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
       <br />
 
       <div className={styles.pokemon_stats}>
-        <h4>Stats:</h4>
+        <h4>Base stats:</h4>
 
         {props.pokemon.stats.map((item, index) => {
           return (
-            <p key={`${index}  ${item}`}>
-              {item.stat.name}: {item.base_stat}
-            </p>
+            <>
+              {/* <input
+                disabled
+                min={0}
+                max={100}
+                value={item.base_stat}
+                type="range"
+              /> */}
+              <p key={`${index}  ${item}`}>
+                {item.stat.name}: {item.base_stat}
+              </p>
+            </>
           )
         })}
       </div>

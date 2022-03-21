@@ -61,6 +61,7 @@ const Filter = () => {
       {RenderTheParameters(whichParameterIsOpen)}
       {parametersThatAreNotUndefined.length !== 0 && (
         <button
+          data-testid="reset_button"
           className={styles.reset_button}
           onClick={() => dispatch(unset())}
         >

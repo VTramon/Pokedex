@@ -1,3 +1,3 @@
-export type searchDataProsp = {
+export type searchDataProps = {
   name: string
 }

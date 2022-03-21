@@ -4,7 +4,7 @@ import { PokemonCardProps } from './PokemonCardTypes'
 
 const PokemonCard: React.FC<PokemonCardProps> = (props) => {
   return (
-    <div data-testid="pokemon-card" className={styles.card}>
+    <div data-testid="Pokemon-card" className={styles.card}>
       <Link href={`/pokemon/${props.name}`}>
         <a>
           <img

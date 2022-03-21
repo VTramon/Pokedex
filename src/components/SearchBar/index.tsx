@@ -1,19 +1,19 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { GetAllPokemons } from '../../service'
+import { pokemonRequests } from '../../service'
 import styles from './SearchBar.module.scss'
-import { searchDataProsp } from './SearchBarTypes'
+import { searchDataProps } from './SearchBarTypes'
 
 const SearchBar = () => {
-  const [dataList, setDataList] = useState<searchDataProsp[]>()
+  const [dataList, setDataList] = useState<searchDataProps[]>()
   const [value, setValue] = useState('')
 
   const router = useRouter()
 
   const handleDataList = async () => {
-    const response = (await GetAllPokemons).data
+    const response = (await pokemonRequests.GetAllPokemons).data
 
-    const result: searchDataProsp[] = response['results']
+    const result: searchDataProps[] = response['results']
 
     setDataList(result)
   }
@@ -31,6 +31,7 @@ const SearchBar = () => {
       className={styles.form}
     >
       <input
+        data-testid="search_input"
         onChange={(e) => setValue(e.target.value)}
         value={value}
         className={styles.input}
@@ -38,10 +39,16 @@ const SearchBar = () => {
         list="searchDataList"
         type="search"
       />
-      <datalist id="searchDataList">
+      <datalist data-testid="search_datalist" id="searchDataList">
         {dataList &&
           dataList.map((item, index) => {
-            return <option key={index} value={item.name} />
+            return (
+              <option
+                data-testid="search_datalist_options"
+                key={index}
+                value={item.name}
+              />
+            )
           })}
       </datalist>
     </form>

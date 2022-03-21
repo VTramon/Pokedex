@@ -25,15 +25,24 @@ const FilterSectionsComponent: React.FC<FilterSectionsComponentProps> = ({
 
   return (
     <>
-      <div className={styles.filter_button_container}>
+      <div
+        data-testid="region_filter_button"
+        className={styles.filter_button_container}
+      >
         <button onClick={() => HandleClick('region')}>Regions</button>
       </div>
 
-      <div className={styles.filter_button_container}>
+      <div
+        data-testid="type_filter_button"
+        className={styles.filter_button_container}
+      >
         <button onClick={() => HandleClick('type')}>Types</button>
       </div>
 
-      <div className={styles.filter_button_container}>
+      <div
+        data-testid="shape_filter_button"
+        className={styles.filter_button_container}
+      >
         <button onClick={() => HandleClick('shape')}>Shapes</button>
       </div>
     </>

@@ -1,12 +1,12 @@
 import { AxiosResponse } from 'axios'
 import { useEffect, useState } from 'react'
-import { pokemonRequests } from 'src/service'
 import { useAppSelector } from '../../Redux/app/hooks'
 import {
   FilterState,
   Shapes,
   Types,
 } from '../../Redux/features/filter/filterSlice'
+import { pokemonRequests } from '../../service'
 import Loader from '../Loader'
 import PokemonCard from '../PokemonCard'
 import styles from './PokemonContainer.module.scss'
@@ -316,8 +316,8 @@ const PokemonContainer = () => {
     <>
       {status.loading === true && <Loader />}
       <section
-        className={styles.outter_container}
-        data-testid="pokemon-container"
+        className={styles.outer_container}
+        data-testid="Pokemon-container"
       >
         <div className={styles.container}>{HandleCard()}</div>
         <button
