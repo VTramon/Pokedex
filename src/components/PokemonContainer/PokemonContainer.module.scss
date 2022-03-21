@@ -4,7 +4,6 @@
   .outer_container {
     button {
       background-color: map-get($dark, pokemon-card-button-background);
-      // border: 1px solid map-get($dark, pokemon-card-border);
     }
   }
 }
@@ -13,7 +12,6 @@
   .outer_container {
     button {
       background-color: map-get($light, pokemon-card-button-background);
-      // border: 1px solid map-get($light, pokemon-card-border);
     }
   }
 }

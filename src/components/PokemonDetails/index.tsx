@@ -80,7 +80,6 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
   }
 
   useEffect(() => {
-    // console.log(props.pokemon)
     handlePokemonDetails()
   }, [])
 
@@ -138,18 +137,9 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
 
         {props.pokemon.stats.map((item, index) => {
           return (
-            <>
-              {/* <input
-                disabled
-                min={0}
-                max={100}
-                value={item.base_stat}
-                type="range"
-              /> */}
-              <p key={`${index}  ${item}`}>
-                {item.stat.name}: {item.base_stat}
-              </p>
-            </>
+            <p key={`${index}  ${item}`}>
+              {item.stat.name}: {item.base_stat}
+            </p>
           )
         })}
       </div>

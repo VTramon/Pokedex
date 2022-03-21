@@ -10,8 +10,6 @@
   .reset_button {
     background-color: map-get($dark, reset-filter-button-background);
     color: map-get($dark, reset-filter-button-color);
-    // color: white;
-    // -webkit-text-stroke: 0.1px black;
   }
 }
 
