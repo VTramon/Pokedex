@@ -1,8 +1,12 @@
 import axios from 'axios'
 
-const GetPokemon = (value: string) =>
-  axios.get(`https://pokeapi.co/api/v2/pokemon/${value}`)
-
+const GetPokemon = (value: string, location?: boolean) => {
+  if (location) {
+    return axios.get(`https://pokeapi.co/api/v2/pokemon/${value}/encounters`)
+  } else {
+    return axios.get(`https://pokeapi.co/api/v2/pokemon/${value}`)
+  }
+}
 const pokemonRequests = {
   GetAllPokemons: axios.get('https://pokeapi.co/api/v2/pokemon?limit=1126'),
   GetKantoPokemons: axios.get('https://pokeapi.co/api/v2/pokedex/2'),

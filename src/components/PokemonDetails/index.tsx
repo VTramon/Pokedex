@@ -3,22 +3,25 @@ import { useEffect, useState } from 'react'
 import { GetPokemon } from 'src/service'
 import styles from './PokemonDetails.module.scss'
 import {
+  PokemonArea,
   PokemonDetailsProps,
   PokemonEvolution,
   PokemonEvolutionPhoto,
   PokemonSpecies,
-  weakness,
 } from './PokemonDetailsTypes'
 
 const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
   const [species, setSpecies] = useState<PokemonSpecies>()
+  const [pokemonWeakness, setPokemonWeakness] = useState<string[]>()
+  const [pokemonTypes, setPokemonTypes] = useState<string[]>()
+  const [encounterPokemonIn, setEncounterPokemonIn] = useState<string[]>()
   const [evolutionRawData, setEvolutionRawData] = useState<PokemonEvolution>()
   const [evolutionChain, setEvolutionChain] = useState<
     { name: string; image: string }[]
   >([])
 
-  const normal: [string] = Object.assign(weakness.Normal)
-  const bug: [string] = Object.assign(weakness.Bug)
+  // const normal: [string] = Object.assign(weakness.Normal)
+  // const bug: [string] = Object.assign(weakness.Bug)
 
   // useEffect(() => {
   //   normal.map((item: string) => {
@@ -28,6 +31,42 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
   //     }
   //   })
   // }, [])
+
+  const capitalize = (value: string): string => {
+    return value.charAt(0).toUpperCase() + value.slice(1)
+  }
+
+  // const handlePokemonWeakness = () => {
+  //   const weaknesses: string[] = []
+
+  //   weaknessesPerType.map((item) => {
+  //     if (pokemonTypes && item.type === pokemonTypes[0]) {
+  //       weaknesses.push(...item.weakness)
+  //     }
+  //     if (pokemonTypes && item.type === pokemonTypes[1]) {
+  //       weaknesses.push(...item.weakness)
+  //     }
+  //   })
+  //   setPokemonWeakness(weaknesses)
+  // }
+
+  const handlePokemonTypes = () => {
+    const types = props.pokemon.types.map((item) => {
+      return capitalize(item.type.name)
+    })
+
+    setPokemonTypes(types)
+  }
+  const handleWhereEncounterThePokemon = async (pokemonName: string) => {
+    const response: PokemonArea[] = (await GetPokemon(pokemonName, true)).data
+
+    const result: string[] = response.map((item) => {
+      const regex = /(-area)/
+      const areas = item.location_area.name.replace(regex, '')
+      return capitalize(areas)
+    })
+    setEncounterPokemonIn(result)
+  }
 
   const handlePokemonDetails = async () => {
     const speciesResponse: PokemonSpecies = (
@@ -58,21 +97,30 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
       const firstImage: string = await handleImagesFromChainEvolution(
         first?.species.name!
       )
-      evolutions.push({ name: first?.species.name!, image: firstImage })
+      evolutions.push({
+        name: capitalize(first?.species.name!),
+        image: firstImage,
+      })
 
       if (first?.evolves_to && first?.evolves_to.length > 0) {
         const second = first.evolves_to[0]
         const secondImage: string = await handleImagesFromChainEvolution(
           second?.species.name!
         )
-        evolutions.push({ name: second.species.name, image: secondImage })
+        evolutions.push({
+          name: capitalize(second.species.name),
+          image: secondImage,
+        })
 
         if (second?.evolves_to && second?.evolves_to.length > 0) {
           const third = second.evolves_to[0]
           const thirdImage: string = await handleImagesFromChainEvolution(
             third?.species.name!
           )
-          evolutions.push({ name: third.species.name, image: thirdImage })
+          evolutions.push({
+            name: capitalize(third.species.name),
+            image: thirdImage,
+          })
         }
       }
     }
@@ -80,8 +128,14 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
   }
 
   useEffect(() => {
+    handlePokemonTypes()
     handlePokemonDetails()
+    handleWhereEncounterThePokemon(props.pokemon.name)
   }, [])
+
+  useEffect(() => {
+    // handlePokemonWeakness()
+  }, [pokemonTypes])
 
   useEffect(() => {
     handleEvolutionChain()
@@ -106,10 +160,12 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
           <b>weight: </b>
           {props.pokemon.weight / 10} Kg
         </div>
-        <div>
-          <b>Habitat: </b>
-          {species?.habitat.name}
-        </div>
+        {species && (
+          <div>
+            <b>Habitat: </b>
+            {species.habitat.name}
+          </div>
+        )}
       </div>
 
       <br />
@@ -117,17 +173,42 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
       <div className={styles.type}>
         <p>
           <b>Type(s): </b>
-          {props.pokemon.types.map((item, index) => {
-            return <span key={`${index}  ${item}`}>item.type.name</span>
-          })}
+          {pokemonTypes &&
+            pokemonTypes.map((item, index) => {
+              return <p key={index + item}>{item}</p>
+            })}
         </p>
       </div>
+
       <br />
-      <div>
+
+      <div className={styles.weakness}>
+        <p>
+          <b>Weaknesses: </b>
+          {pokemonWeakness &&
+            pokemonWeakness.map((item, index) => {
+              return <p key={index + item}>{item}</p>
+            })}
+        </p>
+      </div>
+
+      <br />
+
+      <div className={styles.abilities}>
         <h4>Abilities:</h4>
         {props.pokemon.abilities.map((item, index) => {
-          return <p key={`${index}  ${item}`}>{item.ability.name}</p>
+          return <p key={index + item.ability.name}>{item.ability.name}</p>
         })}
+      </div>
+
+      <br />
+
+      <div className={styles.encounter}>
+        <h4>Encounter:</h4>
+        {encounterPokemonIn &&
+          encounterPokemonIn.map((item, index) => {
+            return <p key={index + item}>{item}</p>
+          })}
       </div>
 
       <br />
@@ -137,7 +218,7 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
 
         {props.pokemon.stats.map((item, index) => {
           return (
-            <p key={`${index}  ${item}`}>
+            <p key={index + item.stat.name}>
               {item.stat.name}: {item.base_stat}
             </p>
           )
@@ -150,11 +231,11 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
               return (
                 <>
                   <img
-                    key={`${index}  ${item.image}`}
+                    key={index + item.image}
                     src={item.image}
                     alt={`imagem do pokemon ${item.name}`}
                   />
-                  <h2 key={`${index}  ${item.name}`}>{item.name}</h2>
+                  <h2 key={index + item.name}>{item.name}</h2>
                 </>
               )
             })
