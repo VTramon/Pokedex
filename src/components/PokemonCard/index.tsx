@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import styles from './PokemonCard.module.scss'
-import { PokemonCardProps } from './PokemonCardTypes'
+import { PokemonCardProps } from './Types'
 
 const PokemonCard: React.FC<PokemonCardProps> = (props) => {
   return (

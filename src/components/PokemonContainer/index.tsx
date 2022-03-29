@@ -15,7 +15,7 @@ import {
   GetRegionPokemonsProps,
   GetTypePokemonsProps,
   pokemonProps,
-} from './PokemonContainerTypes'
+} from './Types'
 
 const PokemonContainer = () => {
   const [status, setStatus] = useState({ loading: true })

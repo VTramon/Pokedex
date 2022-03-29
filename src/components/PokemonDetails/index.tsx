@@ -12,7 +12,7 @@ import {
   strengthsAndWeaknesses,
   TypeCharacteristics,
   weaknessesPerType,
-} from './PokemonDetailsTypes'
+} from './Types'
 
 const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
   const [species, setSpecies] = useState<PokemonSpecies>()

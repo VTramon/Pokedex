@@ -1,9 +1,6 @@
 import { useState } from 'react'
 import styles from './FilterSectionsComponent.module.scss'
-import {
-  FilterSectionProps,
-  FilterSectionsComponentProps,
-} from './FilterSectionsComponentTypes'
+import { FilterSectionProps, FilterSectionsComponentProps } from './Types'
 
 const FilterSectionsComponent: React.FC<FilterSectionsComponentProps> = ({
   setIsOpen,

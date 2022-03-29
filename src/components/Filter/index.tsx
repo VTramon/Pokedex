@@ -5,7 +5,7 @@ import { unset } from '../../Redux/features/filter/filterSlice'
 import FilterRegionComponent from '../FilterParametersComponent'
 import FilterSectionsComponent from '../FilterSectionsComponent'
 import styles from './Filter.module.scss'
-import { FilterParametersProps } from './FilterTypes'
+import { FilterParametersProps } from './Types'
 
 const Filter = () => {
   const dispatch = useDispatch()

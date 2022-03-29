@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { pokemonRequests } from '../../service'
 import styles from './SearchBar.module.scss'
-import { searchDataProps } from './SearchBarTypes'
+import { searchDataProps } from './Types'
 
 const SearchBar = () => {
   const [dataList, setDataList] = useState<searchDataProps[]>()
