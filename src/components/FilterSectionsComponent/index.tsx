@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import styles from './FilterSectionsComponent.module.scss'
+import styles from './styles.module.scss'
 import { FilterSectionProps, FilterSectionsComponentProps } from './Types'
 
 const FilterSectionsComponent: React.FC<FilterSectionsComponentProps> = ({

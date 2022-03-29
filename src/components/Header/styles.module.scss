@@ -14,11 +14,12 @@
     font-family: 'Signika', sans-serif;
   }
 
-  > div {
+  a {
     display: flex;
     justify-content: space-around;
     align-items: center;
     height: 100%;
+    text-decoration: none;
     img {
       height: 80%;
       margin: 0 20px;

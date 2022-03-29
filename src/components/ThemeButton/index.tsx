@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../Redux/app/hooks'
 import { toDark, toLight } from '../../Redux/features/theme/themeSlice'
 import { DarkIcon, LightIcon } from '../Icons'
-import styles from './style.module.scss'
+import styles from './styles.module.scss'
 
 const ThemeButton = () => {
   const theme = useAppSelector((state) => state.theme.value)

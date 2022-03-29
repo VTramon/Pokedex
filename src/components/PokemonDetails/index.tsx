@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Types } from 'src/Redux/features/filter/filterSlice'
 import { GetPokemon } from 'src/service'
-import styles from './PokemonDetails.module.scss'
+import styles from './styles.module.scss'
 import {
   PokemonArea,
   PokemonDetailsProps,

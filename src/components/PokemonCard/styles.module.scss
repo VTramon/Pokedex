@@ -1,20 +1,16 @@
 @import '../../GlobalStyles/variables';
 
 [data-theme='dark'] {
-  .card {
-    img {
-      background-color: map-get($dark, pokemon-card-background);
-      border: 1px solid map-get($dark, pokemon-card-border);
-    }
+  .image {
+    background-color: map-get($dark, pokemon-card-background);
+    border: 1px solid map-get($dark, pokemon-card-border);
   }
 }
 
 [data-theme='light'] {
-  .card {
-    img {
-      background-color: map-get($light, pokemon-card-background);
-      border: 1px solid map-get($light, pokemon-card-border);
-    }
+  .image {
+    background-color: map-get($light, pokemon-card-background);
+    border: 1px solid map-get($light, pokemon-card-border);
   }
 }
 
@@ -28,17 +24,23 @@
     color: inherit;
   }
 
-  img {
+  h3 {
+    font-size: 1.5em;
+    text-align: center;
+  }
+}
+
+.image {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  position: relative;
+
+  > img {
     width: 100%;
-    border-radius: 10px;
 
     &:hover {
       transform: scale(1.08);
     }
-  }
-
-  h3 {
-    font-size: 1.5em;
-    text-align: center;
   }
 }

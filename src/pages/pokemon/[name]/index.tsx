@@ -3,7 +3,7 @@ import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next'
 import Header from '../../../components/Header'
 import PokemonDetails from '../../../components/PokemonDetails'
 import { useAppSelector } from '../../../Redux/app/hooks'
-import styles from './index.module.scss'
+import styles from './styles.module.scss'
 
 type pokemonBaseProps = {
   name: string

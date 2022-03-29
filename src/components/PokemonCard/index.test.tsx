@@ -8,7 +8,6 @@ describe('testing the PokemonCard component', () => {
         img="https://imagensemoldes.com.br/wp-content/uploads/2020/04/Pikachu-Pok%C3%A9mon-PNG.png"
         alt="imagem do pikachu"
         name="pikachu"
-        onLoading={() => {}}
       />
     )
 

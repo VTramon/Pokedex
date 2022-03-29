@@ -8,7 +8,7 @@ import {
   Types,
 } from '../../Redux/features/filter/filterSlice'
 import { FilterParametersProps } from '../Filter/Types'
-import styles from './FilterParametersComponent.module.scss'
+import styles from './styles.module.scss'
 
 const RegionParameter: Regions[] = [
   'Kanto',

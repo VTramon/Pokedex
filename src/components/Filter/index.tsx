@@ -4,7 +4,7 @@ import { useAppSelector } from '../../Redux/app/hooks'
 import { unset } from '../../Redux/features/filter/filterSlice'
 import FilterRegionComponent from '../FilterParametersComponent'
 import FilterSectionsComponent from '../FilterSectionsComponent'
-import styles from './Filter.module.scss'
+import styles from './styles.module.scss'
 import { FilterParametersProps } from './Types'
 
 const Filter = () => {

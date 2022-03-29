@@ -1,11 +1,8 @@
-import { RefreshIcon } from '../Icons'
-import styles from './Loader.module.scss'
+import styles from './styles.module.scss'
 const Loader = () => {
   return (
-    <div className={styles.background}>
-      <section className={styles.loader}>
-        <RefreshIcon />
-      </section>
+    <div className={styles.outer_loader}>
+      <div className={styles.loader}></div>
     </div>
   )
 }

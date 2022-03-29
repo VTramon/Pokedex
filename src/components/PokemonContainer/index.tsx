@@ -7,9 +7,8 @@ import {
   Types,
 } from '../../Redux/features/filter/filterSlice'
 import { pokemonRequests } from '../../service'
-import Loader from '../Loader'
 import PokemonCard from '../PokemonCard'
-import styles from './PokemonContainer.module.scss'
+import styles from './styles.module.scss'
 import {
   GetAllPokemonsProps,
   GetRegionPokemonsProps,
@@ -18,7 +17,7 @@ import {
 } from './Types'
 
 const PokemonContainer = () => {
-  const [status, setStatus] = useState({ loading: true })
+  // const [status, setStatus] = useState({ loading: true })
   const [pokemons, setPokemons] = useState<pokemonProps[]>()
   const [numberOfPokemonsListed, setNumberOfPokemonsListed] = useState(100)
 
@@ -290,7 +289,7 @@ const PokemonContainer = () => {
         const imgNumber = itemSplit[itemSplit.length - 2]
         return (
           <PokemonCard
-            onLoading={() => setStatus({ loading: false })}
+            // onLoading={() => setStatus({ loading: false })}
             name={item.name}
             key={index}
             img={ReturnTheCorrectPokemonImageNumbers(parseInt(imgNumber))}
@@ -314,7 +313,7 @@ const PokemonContainer = () => {
 
   return (
     <>
-      {status.loading === true && <Loader />}
+      {/* {status.loading === true && <Loader />} */}
       <section
         className={styles.outer_container}
         data-testid="Pokemon-container"
