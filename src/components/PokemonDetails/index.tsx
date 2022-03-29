@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { Types } from 'src/Redux/features/filter/filterSlice'
 import { GetPokemon } from 'src/service'
 import styles from './PokemonDetails.module.scss'
 import {
@@ -8,29 +9,21 @@ import {
   PokemonEvolution,
   PokemonEvolutionPhoto,
   PokemonSpecies,
+  strengthsAndWeaknesses,
+  TypeCharacteristics,
+  weaknessesPerType,
 } from './PokemonDetailsTypes'
 
 const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
   const [species, setSpecies] = useState<PokemonSpecies>()
-  const [pokemonWeakness, setPokemonWeakness] = useState<string[]>()
-  const [pokemonTypes, setPokemonTypes] = useState<string[]>()
+  const [strengthsAndWeaknesses, setStrengthsAndWeaknesses] =
+    useState<strengthsAndWeaknesses>()
+  const [pokemonTypes, setPokemonTypes] = useState<TypeCharacteristics[]>([])
   const [encounterPokemonIn, setEncounterPokemonIn] = useState<string[]>()
   const [evolutionRawData, setEvolutionRawData] = useState<PokemonEvolution>()
   const [evolutionChain, setEvolutionChain] = useState<
     { name: string; image: string }[]
   >([])
-
-  // const normal: [string] = Object.assign(weakness.Normal)
-  // const bug: [string] = Object.assign(weakness.Bug)
-
-  // useEffect(() => {
-  //   normal.map((item: string) => {
-  //     const hasEqualValue = bug.some((elem) => elem === item)
-  //     if (!hasEqualValue) {
-  //       bug.push(item)
-  //     }
-  //   })
-  // }, [])
 
   const capitalize = (value: string): string => {
     return value.charAt(0).toUpperCase() + value.slice(1)
@@ -50,9 +43,82 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
   //   setPokemonWeakness(weaknesses)
   // }
 
+  const handlePokemonWeaknesses = () => {
+    const superWeak: Types[] = []
+    const weak: Types[] = []
+    const superResistant: Types[] = []
+    const resistant: Types[] = []
+    const immune: Types[] = []
+    const normal: Types[] = []
+
+    weaknessesPerType
+      .map(
+        (TypeCharacteristics: TypeCharacteristics) => TypeCharacteristics.name
+      )
+      .forEach((p: Types) => {
+        if (pokemonTypes) {
+          const type1 = pokemonTypes[0]
+          const type2: TypeCharacteristics | null = pokemonTypes[1]
+
+          if (type1 && !type2) {
+            if (type1.weakTo.includes(p)) weak.push(p)
+            else if (type1.resistantAgainst.includes(p)) resistant.push(p)
+            else if (type1.immuneTo.includes(p)) immune.push(p)
+            else normal.push(p)
+          } else if (type1 && type2) {
+            if (type1.weakTo.includes(p) && type2.weakTo.includes(p)) {
+              superWeak.push(p)
+            } else if (
+              type1.resistantAgainst.includes(p) &&
+              type2.resistantAgainst.includes(p)
+            ) {
+              superResistant.push(p)
+            } else if (
+              (type1.weakTo.includes(p) &&
+                type2.resistantAgainst.includes(p)) ||
+              (type1.resistantAgainst.includes(p) && type2.weakTo.includes(p))
+            ) {
+              normal.push(p)
+            } else if (
+              type1.immuneTo.includes(p) ||
+              type2.immuneTo.includes(p)
+            ) {
+              immune.push(p)
+            } else if (
+              [...type1.weakTo, ...type2.weakTo].filter((v) => v === p)
+                .length == 1
+            ) {
+              weak.push(p)
+            } else if (
+              [...type1.resistantAgainst, ...type2.resistantAgainst].filter(
+                (v) => v === p
+              ).length == 1
+            ) {
+              resistant.push(p)
+            } else {
+              normal.push(p)
+            }
+          }
+        }
+      })
+
+    setStrengthsAndWeaknesses({
+      superWeak,
+      weak,
+      superResistant,
+      resistant,
+      immune,
+      normal,
+    })
+  }
   const handlePokemonTypes = () => {
-    const types = props.pokemon.types.map((item) => {
-      return capitalize(item.type.name)
+    const types: TypeCharacteristics[] = []
+    props.pokemon.types.map((item) => {
+      weaknessesPerType.map((weakness) => {
+        if (weakness.name === capitalize(item.type.name)) {
+          types.push(weakness)
+        }
+      })
     })
 
     setPokemonTypes(types)
@@ -134,7 +200,7 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
   }, [])
 
   useEffect(() => {
-    // handlePokemonWeakness()
+    handlePokemonWeaknesses()
   }, [pokemonTypes])
 
   useEffect(() => {
@@ -153,7 +219,7 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
 
       <div className={styles.characteristics}>
         <div>
-          <b>height: </b>
+          <h3>height: </h3>
           {props.pokemon.height / 10} m
         </div>
         <div>
@@ -171,54 +237,97 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
       <br />
 
       <div className={styles.type}>
-        <p>
-          <b>Type(s): </b>
-          {pokemonTypes &&
-            pokemonTypes.map((item, index) => {
-              return <p key={index + item}>{item}</p>
-            })}
-        </p>
+        <h3>Type(s): </h3>
+        {pokemonTypes &&
+          pokemonTypes.map((item, index) => {
+            return <p key={'Type' + index + item.name}>{item.name}</p>
+          })}
       </div>
 
       <br />
 
-      <div className={styles.weakness}>
-        <p>
-          <b>Weaknesses: </b>
-          {pokemonWeakness &&
-            pokemonWeakness.map((item, index) => {
-              return <p key={index + item}>{item}</p>
+      <div className={styles.strengths_and_weaknesses}>
+        <h3>Strengths and weaknesses: </h3>
+        <div>
+          <h4>Immune:</h4>
+          {strengthsAndWeaknesses?.immune &&
+            strengthsAndWeaknesses.immune.map((item, index) => {
+              return <p key={'Immune' + index + item}>{item}</p>
             })}
-        </p>
+        </div>
+
+        <div>
+          <h4>Super Resistant:</h4>
+          {strengthsAndWeaknesses?.superResistant &&
+            strengthsAndWeaknesses.superResistant.map((item, index) => {
+              return <p key={'Super Resistant' + index + item}>{item}</p>
+            })}
+        </div>
+
+        <div>
+          <h4>Resistant:</h4>
+          {strengthsAndWeaknesses?.resistant &&
+            strengthsAndWeaknesses.resistant.map((item, index) => {
+              return <p key={'Resistant' + index + item}>{item}</p>
+            })}
+        </div>
+
+        <div>
+          <h4>Normal:</h4>
+          {strengthsAndWeaknesses?.normal &&
+            strengthsAndWeaknesses.normal.map((item, index) => {
+              return <p key={'Normal' + index + item}>{item}</p>
+            })}
+        </div>
+
+        <div>
+          <h4>Weak:</h4>
+          {strengthsAndWeaknesses?.weak &&
+            strengthsAndWeaknesses.weak.map((item, index) => {
+              return <p key={'Weak' + index + item}>{item}</p>
+            })}
+        </div>
+
+        <div>
+          <h4>Super Weak:</h4>
+          {strengthsAndWeaknesses?.superWeak &&
+            strengthsAndWeaknesses.superWeak.map((item, index) => {
+              return <p key={'Super Weak' + index + item}>{item}</p>
+            })}
+        </div>
       </div>
 
       <br />
 
       <div className={styles.abilities}>
-        <h4>Abilities:</h4>
+        <h3>Abilities:</h3>
         {props.pokemon.abilities.map((item, index) => {
-          return <p key={index + item.ability.name}>{item.ability.name}</p>
+          return (
+            <p key={'Abilities' + index + item.ability.name}>
+              {item.ability.name}
+            </p>
+          )
         })}
       </div>
 
       <br />
 
       <div className={styles.encounter}>
-        <h4>Encounter:</h4>
+        <h3>Encounter:</h3>
         {encounterPokemonIn &&
           encounterPokemonIn.map((item, index) => {
-            return <p key={index + item}>{item}</p>
+            return <p key={'Encounter' + index + item}>{item}</p>
           })}
       </div>
 
       <br />
 
       <div className={styles.pokemon_stats}>
-        <h4>Base stats:</h4>
+        <h3>Base stats:</h3>
 
         {props.pokemon.stats.map((item, index) => {
           return (
-            <p key={index + item.stat.name}>
+            <p key={'Base stats' + index + item.stat.name}>
               {item.stat.name}: {item.base_stat}
             </p>
           )
@@ -231,11 +340,13 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
               return (
                 <>
                   <img
-                    key={index + item.image}
+                    key={'evolutionChain' + index + item.image}
                     src={item.image}
                     alt={`imagem do pokemon ${item.name}`}
                   />
-                  <h2 key={index + item.name}>{item.name}</h2>
+                  <h2 key={'evolutionChain' + index + item.name}>
+                    {item.name}
+                  </h2>
                 </>
               )
             })

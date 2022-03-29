@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import themereducer from '../features/theme/themeSlice'
 import filterReducer from '../features/filter/filterSlice'
+import themeReducer from '../features/theme/themeSlice'
 
 export const store = configureStore({
   reducer: {
-    theme: themereducer,
+    theme: themeReducer,
     filter: filterReducer,
   },
 })
