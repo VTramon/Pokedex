@@ -1,7 +1,10 @@
 import axios from 'axios'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { Types } from 'src/Redux/features/filter/filterSlice'
 import { GetPokemon } from 'src/service'
+import { Image } from '../Image'
+import Loader from '../Loader'
 import styles from './styles.module.scss'
 import {
   PokemonArea,
@@ -24,24 +27,15 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
   const [evolutionChain, setEvolutionChain] = useState<
     { name: string; image: string }[]
   >([])
+  const [isLoading, setIsLoading] = useState(true)
 
   const capitalize = (value: string): string => {
     return value.charAt(0).toUpperCase() + value.slice(1)
   }
 
-  // const handlePokemonWeakness = () => {
-  //   const weaknesses: string[] = []
-
-  //   weaknessesPerType.map((item) => {
-  //     if (pokemonTypes && item.type === pokemonTypes[0]) {
-  //       weaknesses.push(...item.weakness)
-  //     }
-  //     if (pokemonTypes && item.type === pokemonTypes[1]) {
-  //       weaknesses.push(...item.weakness)
-  //     }
-  //   })
-  //   setPokemonWeakness(weaknesses)
-  // }
+  const descapitalize = (value: string): string => {
+    return value.charAt(0).toLocaleLowerCase() + value.slice(1)
+  }
 
   const handlePokemonWeaknesses = () => {
     const superWeak: Types[] = []
@@ -123,8 +117,9 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
 
     setPokemonTypes(types)
   }
-  const handleWhereEncounterThePokemon = async (pokemonName: string) => {
-    const response: PokemonArea[] = (await GetPokemon(pokemonName, true)).data
+  const handleWhereEncounterThePokemon = async () => {
+    const response: PokemonArea[] = (await GetPokemon(props.pokemon.name, true))
+      .data
 
     const result: string[] = response.map((item) => {
       const regex = /(-area)/
@@ -196,7 +191,7 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
   useEffect(() => {
     handlePokemonTypes()
     handlePokemonDetails()
-    handleWhereEncounterThePokemon(props.pokemon.name)
+    handleWhereEncounterThePokemon()
   }, [])
 
   useEffect(() => {
@@ -211,40 +206,65 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
     <div className={styles.container}>
       <h1>{props.pokemon.name}</h1>
 
-      <img
-        style={{ width: '300px', height: '300px' }}
-        src={props.pokemon.sprites.other['official-artwork'].front_default}
-        alt={`${props.pokemon.name} image`}
-      />
+      <div>
+        <div className={styles.image_container}>
+          {isLoading && <Loader />}
 
-      <div className={styles.characteristics}>
-        <div>
-          <h3>height: </h3>
-          {props.pokemon.height / 10} m
+          <Image
+            alt={`${props.pokemon.name} image`}
+            onLoad={() => setIsLoading(false)}
+            src={props.pokemon.sprites.other['official-artwork'].front_default}
+          />
         </div>
-        <div>
-          <b>weight: </b>
-          {props.pokemon.weight / 10} Kg
-        </div>
-        {species && (
+
+        <div className={styles.characteristics}>
           <div>
-            <b>Habitat: </b>
-            {species.habitat.name}
+            <h3>height: </h3>
+            <p>{props.pokemon.height / 10} m</p>
           </div>
-        )}
+
+          <div>
+            <h3>weight: </h3>
+            <p>{props.pokemon.weight / 10} Kg</p>
+          </div>
+
+          <div>
+            <h3>Habitat: </h3>
+            <p>{species?.habitat.name}</p>
+          </div>
+
+          <div className={styles.type}>
+            <h3>Type(s): </h3>
+            {pokemonTypes &&
+              pokemonTypes.map((item, index) => {
+                return <p key={'Type' + index + item.name}>{item.name}</p>
+              })}
+          </div>
+
+          <div className={styles.abilities}>
+            <h3>Abilities:</h3>
+            {props.pokemon.abilities.map((item, index) => {
+              return (
+                <p key={'Abilities' + index + item.ability.name}>
+                  {item.ability.name}
+                </p>
+              )
+            })}
+          </div>
+        </div>
       </div>
 
-      <br />
+      <div className={styles.pokemon_stats}>
+        <h3>Base stats:</h3>
 
-      <div className={styles.type}>
-        <h3>Type(s): </h3>
-        {pokemonTypes &&
-          pokemonTypes.map((item, index) => {
-            return <p key={'Type' + index + item.name}>{item.name}</p>
-          })}
+        {props.pokemon.stats.map((item, index) => {
+          return (
+            <p key={'Base stats' + index + item.stat.name}>
+              <span>{item.stat.name}:</span> {item.base_stat}
+            </p>
+          )
+        })}
       </div>
-
-      <br />
 
       <div className={styles.strengths_and_weaknesses}>
         <h3>Strengths and weaknesses: </h3>
@@ -297,21 +317,6 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
         </div>
       </div>
 
-      <br />
-
-      <div className={styles.abilities}>
-        <h3>Abilities:</h3>
-        {props.pokemon.abilities.map((item, index) => {
-          return (
-            <p key={'Abilities' + index + item.ability.name}>
-              {item.ability.name}
-            </p>
-          )
-        })}
-      </div>
-
-      <br />
-
       <div className={styles.encounter}>
         <h3>Encounter:</h3>
         {encounterPokemonIn &&
@@ -320,34 +325,25 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
           })}
       </div>
 
-      <br />
-
-      <div className={styles.pokemon_stats}>
-        <h3>Base stats:</h3>
-
-        {props.pokemon.stats.map((item, index) => {
-          return (
-            <p key={'Base stats' + index + item.stat.name}>
-              {item.stat.name}: {item.base_stat}
-            </p>
-          )
-        })}
-      </div>
-
       <div className={styles.evolutions}>
         {evolutionChain
           ? evolutionChain.map((item, index) => {
               return (
-                <>
-                  <img
-                    key={'evolutionChain' + index + item.image}
-                    src={item.image}
-                    alt={`imagem do pokemon ${item.name}`}
-                  />
-                  <h2 key={'evolutionChain' + index + item.name}>
-                    {item.name}
-                  </h2>
-                </>
+                <div>
+                  <Link href={`/pokemon/${descapitalize(item.name)}`}>
+                    <a>
+                      <Image
+                        key={'evolutionChain' + index + item.image}
+                        alt={`imagem do pokemon ${item.name}`}
+                        onLoad={() => setIsLoading(false)}
+                        src={item.image}
+                      />
+                      <h2 key={'evolutionChain' + index + item.name}>
+                        {item.name}
+                      </h2>
+                    </a>
+                  </Link>
+                </div>
               )
             })
           : undefined}

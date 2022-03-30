@@ -12,8 +12,13 @@ $dark: (
   search-border: #dc0a2d,
   search-background: #636363,
   font-color: #e4e4e4,
-  loader-primary: #dc0a2d,
-  loader-secondary: #636363,
+  loader-primary: #636363,
+  loader-secondary: #dc0a2d,
+  details-containers-background: #313131,
+  details-h3-color: #1069a6,
+  details-span-color: #b61f38,
+  details-sub-div-color: #b61f38be,
+  details-sub-div-background: #2b2b2b,
 );
 
 $light: (
@@ -30,6 +35,11 @@ $light: (
   search-border: #1069a6,
   search-background: #b4b4b4,
   font-color: #292929,
-  loader-primary: #1069a6,
-  loader-secondary: #b4b4b4,
+  loader-primary: #b4b4b4,
+  loader-secondary: #1069a6,
+  details-containers-background: #d4d3d3,
+  details-h3-color: #dc0a2d,
+  details-span-color: #0077c7,
+  details-sub-div-color: #0077c7,
+  details-sub-div-background: #e2e2e2,
 );
