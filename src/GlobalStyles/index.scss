@@ -40,6 +40,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+main {
+  padding: 50px;
+}
+
 #__content {
   display: flex;
   flex-direction: column;

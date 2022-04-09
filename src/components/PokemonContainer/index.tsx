@@ -17,9 +17,9 @@ import {
 } from './Types'
 
 const PokemonContainer = () => {
-  // const [status, setStatus] = useState({ loading: true })
   const [pokemons, setPokemons] = useState<pokemonProps[]>()
-  const [numberOfPokemonsListed, setNumberOfPokemonsListed] = useState(100)
+  const [numberOfPokemonsListed, setNumberOfPokemonsListed] = useState(20)
+  const [renderEveryXPokemons, setRenderEveryXPokemons] = useState(20)
 
   const parameters = useAppSelector((state) => state.filter)
 
@@ -283,13 +283,10 @@ const PokemonContainer = () => {
     const result = pokemons
       ?.slice(0, numberOfPokemonsListed)
       .map((item, index) => {
-        // get the pokemon id using the url
-
         const itemSplit = pokemons[index].url.split('/')
         const imgNumber = itemSplit[itemSplit.length - 2]
         return (
           <PokemonCard
-            // onLoading={() => setStatus({ loading: false })}
             name={item.name}
             key={index}
             img={ReturnTheCorrectPokemonImageNumbers(parseInt(imgNumber))}
@@ -313,7 +310,6 @@ const PokemonContainer = () => {
 
   return (
     <>
-      {/* {status.loading === true && <Loader />} */}
       <section
         className={styles.outer_container}
         data-testid="Pokemon-container"
@@ -321,7 +317,9 @@ const PokemonContainer = () => {
         <div className={styles.container}>{HandleCard()}</div>
         <button
           data-testid="container-button"
-          onClick={() => setNumberOfPokemonsListed((state) => state + 100)}
+          onClick={() =>
+            setNumberOfPokemonsListed((state) => state + renderEveryXPokemons)
+          }
           disabled={numberOfPokemonsListed >= 1126 ? true : false}
         >
           more

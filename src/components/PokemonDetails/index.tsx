@@ -317,13 +317,15 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = (props) => {
         </div>
       </div>
 
-      <div className={styles.encounter}>
-        <h3>Encounter:</h3>
-        {encounterPokemonIn &&
-          encounterPokemonIn.map((item, index) => {
-            return <p key={'Encounter' + index + item}>{item}</p>
-          })}
-      </div>
+      {encounterPokemonIn?.length !== 0 && (
+        <div className={styles.encounter}>
+          <h3>Encounter:</h3>
+          {encounterPokemonIn &&
+            encounterPokemonIn.map((item, index) => {
+              return <p key={'Encounter' + index + item}>{item}</p>
+            })}
+        </div>
+      )}
 
       <div className={styles.evolutions}>
         {evolutionChain

@@ -10,6 +10,7 @@ describe('testing the PokemonContainer component', () => {
 
     expect(container).toBeInTheDocument()
   })
+
   it('should render the cards', async () => {
     render(<PokemonContainer />)
 
@@ -17,6 +18,7 @@ describe('testing the PokemonContainer component', () => {
 
     expect(cards).toBeTruthy()
   })
+
   it('should render more cards when click the button', async () => {
     render(<PokemonContainer />)
 
